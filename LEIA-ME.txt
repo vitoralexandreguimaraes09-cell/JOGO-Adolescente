@@ -1,0 +1,19 @@
+DESCONecta! V9
+
+Abra index.html para começar.
+
+ARQUIVOS:
+- index.html = menu principal e gerenciamento dos 3 saves.
+- jogo.html = criação do personagem, casa, tarefas, minigames, telefone, concentração e final da mãe.
+- escola.html = sequência separada da ida para a escola.
+
+SALVAMENTO:
+- Existem 3 slots.
+- Saves em andamento podem ser continuados.
+- Saves zerados mostram somente estatísticas.
+- Um save zerado precisa ser excluído antes de criar outro naquele slot.
+- O jogo salva automaticamente durante a partida.
+
+IMPORTANTE:
+- Mantenha os 3 arquivos na mesma pasta.
+- Abra index.html no navegador.
