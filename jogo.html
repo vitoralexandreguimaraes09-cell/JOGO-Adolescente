@@ -365,6 +365,7 @@ function interactBackpack(){
 function startSchoolCutscene(){
  if(!activeSlot)return;
  saveCurrentGame(false);
+ marcarNavegacaoInterna();
  location.href="escola.html";
 }
 function startEnding(){
