@@ -14,6 +14,18 @@ const scenes=[
 ['🏆 SAVE ZERADO!','Sua partida foi concluída. As estatísticas ficaram salvas e este slot agora pode apenas ser consultado.']
 ];
 function next(){if(step<scenes.length){title.innerHTML=scenes[step][0];message.innerHTML=scenes[step][1];step++;return}finish()}
-function finish(){data.status='completed';data.schoolFinished=true;data.coins=Number(data.coins||0)+1000;data.savedAt=new Date().toISOString();localStorage.setItem('desconectaSave'+slot,JSON.stringify(data));location.href='index.html'}
-next();
+function finish() {
+  data.status = 'completed';
+  data.schoolFinished = true;
+  data.coins = Number(data.coins || 0) + 1000;
+  data.savedAt = new Date().toISOString();
+
+  localStorage.setItem('desconectaSave' + slot, JSON.stringify(data));
+
+  localStorage.removeItem('desconectaExitPending');
+
+  location.href = 'index.html';
+}
+
+próximo();
 </script></body></html>
