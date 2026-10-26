@@ -122,30 +122,6 @@
   <script>
     const slots = document.getElementById('slots');
 
-    /*
-      Se existe uma partida registrada, mas a sessão anterior não existe
-      nesta aba, consideramos que o jogador voltou depois de sair.
-
-      sessionStorage sobrevive a uma atualização normal da página.
-    */
-    const exitMarker = 'desconectaExitPending';
-    const sessionMarker = 'desconectaSessionActive';
-
-    const previousGame = localStorage.getItem(exitMarker);
-    const sameTabSession =
-      sessionStorage.getItem(sessionMarker) === '1';
-
-    if (previousGame === '1' && !sameTabSession) {
-      const keysToRemove = [];
-
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-
-        if (key && key.startsWith('desconecta')) {
-          keysToRemove.push(key);
-        }
-      }
-
       keysToRemove.forEach(key => localStorage.removeItem(key));
 
       alert(
@@ -259,6 +235,8 @@
       setActive(i);
       beginSession();
 
+      marcarNavegacaoInterna();
+      
       location.href = 'jogo.html?new=1&slot=' + i;
     }
 
@@ -273,6 +251,8 @@
       setActive(i);
       beginSession();
 
+      marcarNavegacaoInterna();
+      
       location.href = 'jogo.html?continue=1&slot=' + i;
     }
 
