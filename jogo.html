@@ -218,9 +218,12 @@ function loadCurrentGame(){
  const raw=localStorage.getItem("desconectaSave"+activeSlot);if(!raw)return false;
  const d=JSON.parse(raw);if(d.status==="completed")return false;
  age=d.age||13;gender=d.gender||"male";clothes=d.clothes||"blue";hairColor=d.hairColor||"brown";unlocked=d.unlocked||{};coins=Number(d.coins||0);tasks=d.tasks||{};tasksList.forEach(t=>{if(typeof tasks[t]!=="boolean")tasks[t]=false});life=Number(d.life??100);focus=Number(d.focus??100);screenTime=Number(d.screenTime||0);playerX=Number(d.playerX||550);playerY=Number(d.playerY||620);endingData=d.endingData||null;mathRecord=Number(d.mathRecord||0);gameActive=true;phoneOpen=false;warningShown=false;showScreen("gameScreen");updateTaskList();updateHUD();updateWorldItems();updateCharacterOnMap();centerCamera();return true;
+ localStorage.setItem('desconectaExitPending', '1');
 }
+ 
 function deleteSaveSlot(n){localStorage.removeItem("desconectaSave"+n);if(activeSlot===n){activeSlot=0;localStorage.removeItem("desconectaActiveSlot")}}
 function startNewGame(){
+ localStorage.setItem('desconectaExitPending', '1');
  if(!activeSlot){showSimpleModal("💾 Escolha um save","Volte ao menu e escolha um slot de save antes de começar.");return}
  coins=0;unlocked={};localStorage.removeItem("desconectaCoins");localStorage.removeItem("desconectaUnlocked");
  resetRunState();gameActive=true;showScreen("gameScreen");updateWorldItems();updateCharacterOnMap();centerCamera();saveCurrentGame();
