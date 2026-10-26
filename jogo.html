@@ -31,7 +31,25 @@ button,input{font:inherit}button{cursor:pointer}
 .player .body{position:absolute;left:3px;top:25px;width:35px;height:31px;border-radius:10px 10px 6px 6px;background:#397fd0}
 .player.female .body{background:#c94f9d}
 .player .hair{position:absolute;left:5px;top:-3px;width:31px;height:15px;border-radius:18px 18px 7px 7px;background:#5a341f;z-index:4}
-.player.female .hair{height:18px;border-radius:18px 18px 10px 10px;box-shadow:-4px 8px 0 var(--hair-color),4px 8px 0 var(--hair-color)}
+.player.female .hair {
+  height: 10px;
+  top: -2px;
+  border-radius: 18px 18px 4px 4px;
+  box-shadow:
+    -4px 5px 0 -3px var(--hair-color),
+     4px 5px 0 -3px var(--hair-color);
+  z-index: 3;
+}
+
+.player .face {
+  position: absolute;
+  z-index: 5;
+  top: 9px;
+  left: 12px;
+  font-size: 12px;
+  color: #3b241c;
+  pointer-events: none;
+}
 .face{position:absolute;z-index:5;top:9px;left:12px;font-size:12px;color:#3b241c;pointer-events:none}
 .player.male .face:after{content:"•  •";letter-spacing:1px}
 .player.female .face:after{content:"•  •";letter-spacing:1px}
