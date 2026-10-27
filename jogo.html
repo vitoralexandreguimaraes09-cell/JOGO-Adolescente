@@ -26,37 +26,34 @@ button,input{font:inherit}button{cursor:pointer}
 .shopGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .shopItem{padding:15px;border-radius:14px;background:#1a2a3e;border:1px solid #34465d}
 .shopItem button{margin-top:8px}.owned{color:#63eb8c;font-weight:bold}
-.player{position:absolute;width:42px;height:62px;z-index:30;transform:translate(-50%,-50%)}
-.player .head{position:absolute;width:27px;height:27px;left:7px;top:0;border-radius:50%;background:#f2bd8b;z-index:2}
-.player .body{position:absolute;left:3px;top:25px;width:35px;height:31px;border-radius:10px 10px 6px 6px;background:#397fd0}
-.player.female .body{background:#c94f9d}
-.player .hair{position:absolute;left:5px;top:-3px;width:31px;height:15px;border-radius:18px 18px 7px 7px;background:#5a341f;z-index:4}
-.player.female .hair {
-  height: 10px;
-  top: -2px;
-  border-radius: 18px 18px 4px 4px;
-  box-shadow:
-    -4px 5px 0 -3px var(--hair-color),
-     4px 5px 0 -3px var(--hair-color);
-  z-index: 3;
-}
-
-.player .face {
-  position: absolute;
-  z-index: 5;
-  top: 9px;
-  left: 12px;
-  font-size: 12px;
-  color: #3b241c;
-  pointer-events: none;
-}
-.face{position:absolute;z-index:5;top:9px;left:12px;font-size:12px;color:#3b241c;pointer-events:none}
-.player.male .face:after{content:"•  •";letter-spacing:1px}
-.player.female .face:after{content:"•  •";letter-spacing:1px}
-.accessoryHat{position:absolute;z-index:6;left:2px;top:-9px;width:38px;height:12px;background:#263c85;border-radius:10px 10px 2px 2px;display:none}
+ .player{position:absolute;width:48px;height:78px;z-index:30;transform:translate(-50%,-50%);--hair-color:#5a341f;--shirt-color:#397fd0}
+.player .head{position:absolute;width:27px;height:27px;left:10px;top:1px;border-radius:50%;background:#f2bd8b;z-index:3;box-shadow:inset 0 -2px 0 #d99b72}
+.player .body{position:absolute;left:5px;top:26px;width:38px;height:30px;border-radius:11px 11px 7px 7px;background:var(--shirt-color);z-index:3;box-shadow:inset 0 -3px 0 #0002}
+.player.female .body{border-radius:11px 11px 10px 10px}
+.player .hair{position:absolute;left:8px;top:-2px;width:31px;height:15px;border-radius:18px 18px 7px 7px;background:var(--hair-color);z-index:4}
+.player.female .hair{left:7px;top:-3px;width:33px;height:16px;border-radius:18px 18px 7px 7px;z-index:4}
+.player.female .hair:before,.player.female .hair:after{content:"";position:absolute;top:10px;width:7px;height:31px;background:var(--hair-color);border-radius:0 0 7px 7px;z-index:4}
+.player.female .hair:before{left:0;transform:rotate(3deg)}.player.female .hair:after{right:0;transform:rotate(-3deg)}
+.player .face{position:absolute;z-index:5;top:10px;left:15px;font-size:12px;color:#3b241c;pointer-events:none}
+.player.male .face:after,.player.female .face:after{content:"•  •";letter-spacing:1px}
+.player .accessoryHat{position:absolute;z-index:7;left:5px;top:-8px;width:36px;height:13px;background:linear-gradient(180deg,#ffbd54,#e88924);border-radius:15px 15px 4px 4px;display:none;box-shadow:inset 0 2px 0 #ffffff55,0 2px 3px #0003}
+.player .accessoryHat:before{content:"";position:absolute;left:14px;top:4px;width:8px;height:4px;border-radius:50%;background:#fff7d7}
+.player .accessoryHat:after{content:"";position:absolute;right:-7px;bottom:0;width:18px;height:4px;background:#d8751d;border-radius:0 8px 8px 0;transform:rotate(-5deg)}
 .player.hasHat .accessoryHat{display:block}
-.player .backpack{position:absolute;z-index:1;left:-7px;top:28px;width:10px;height:24px;border-radius:7px;background:#e2a53b;display:none}
+.player .backpack{position:absolute;z-index:2;left:-2px;top:31px;width:12px;height:25px;border-radius:6px 4px 5px 5px;background:linear-gradient(90deg,#d98d25,#f4bf50);border:1px solid #9a5b1b;display:none;box-shadow:2px 2px 0 #0002}
 .player.hasBackpack .backpack{display:block}
+.player .coat{position:absolute;display:none;z-index:5;left:3px;top:25px;width:42px;height:33px;border-radius:11px 11px 7px 7px;background:linear-gradient(100deg,#34445b,#536984 48%,#26374e);border:1px solid #1b293a;box-shadow:inset 0 0 0 2px #ffffff15}
+.player .coat:before{content:"";position:absolute;left:19px;top:2px;width:2px;height:27px;background:#d5e0e9;border-radius:2px}
+.player .coat:after{content:"";position:absolute;right:4px;top:8px;width:7px;height:8px;border:1px solid #a9bed0;border-radius:2px}
+.player.hasCoat .coat{display:block}
+.player .legs{position:absolute;z-index:2;left:10px;top:52px;width:28px;height:16px;display:flex;gap:4px}
+.player .leg{display:block;width:10px;height:15px;background:#354b69;border-radius:2px 2px 4px 4px}
+.player.female .leg{background:#39455b}
+.player .shoes{position:absolute;z-index:6;left:7px;top:65px;width:36px;height:11px}
+.player .shoe{position:absolute;bottom:0;width:16px;height:8px;background:#15191f;border:1px solid #080b0e;border-radius:5px 5px 3px 3px;box-shadow:inset 0 2px 0 #ffffff18}
+.player .shoe.left{left:0}.player .shoe.right{right:0}
+.player.hasShoes .shoe{background:linear-gradient(180deg,#f2f5f8,#aeb9c7);border-color:#6d7d8f;box-shadow:inset 0 -2px 0 #7f8b99}
+.player.hasShoes .shoe:after{content:"✦";position:absolute;left:4px;top:-2px;font-size:8px;font-weight:bold;color:#2563eb}
 #gameScreen{background:#80b96a;overflow:hidden}
 #world{position:absolute;width:2400px;height:1800px;background:linear-gradient(#84bd70 0 58%,#6ba05b 58%);left:0;top:0}
 .road{position:absolute;background:#555c62}.road.horizontal{left:0;top:780px;width:2400px;height:150px}.road.vertical{left:1080px;top:0;width:150px;height:1800px}
@@ -105,7 +102,7 @@ button,input{font:inherit}button{cursor:pointer}
 <div class="characterGrid">
 <div class="preview">
 <div id="characterPreview" class="player male">
-<div class="backpack"></div><div class="accessoryHat"></div><div class="hair"></div><div class="head"></div><div class="face"></div><div class="body"></div>
+<div class="backpack"></div><div class="accessoryHat"></div><div class="hair"></div><div class="head"></div><div class="face"></div><div class="body"></div><div class="coat"></div><div class="legs"><span class="leg left"></span><span class="leg right"></span></div><div class="shoes"><span class="shoe left"></span><span class="shoe right"></span></div>
 </div>
 </div>
 <div class="options">
@@ -123,9 +120,9 @@ button,input{font:inherit}button{cursor:pointer}
 </div>
 <p id="ageDescription" style="color:#a9bfd1;font-size:13px">13 anos: matemática e geografia em nível básico.</p>
 <div class="optionTitle">Camisa</div>
-<div class="choiceRow">
-<button class="choice selected" onclick="selectClothes('blue',this)">🔵 Azul</button>
-<button class="choice" onclick="selectClothes('red',this)">🔴 Vermelha</button>
+<div class="choiceRow" id="shirtChoices">
+<button id="shirtPrimary" class="choice selected" onclick="selectClothes(gender==='female'?'pink':'blue',this)">🔵 Azul</button>
+<button id="shirtSecondary" class="choice" onclick="selectClothes(gender==='female'?'red':'green',this)">🔴 Vermelha</button>
 </div>
 <div class="optionTitle">Rosto e cabelo</div>
 <div class="choiceRow">
@@ -166,7 +163,7 @@ button,input{font:inherit}button{cursor:pointer}
 <div id="task-math" class="taskObject" style="left:1320px;top:850px" onclick="tryOpenTask('math')">➗<span>Matemática</span></div>
 <div id="task-geo" class="taskObject" style="left:1510px;top:850px" onclick="tryOpenTask('geo')">🌎<span>Geografia</span></div>
 <div id="task-bag" class="taskObject hidden" style="left:515px;top:620px" onclick="interactBackpack()">🎒<span>Mochila</span></div>
-<div id="player" class="player male"><div class="backpack"></div><div class="accessoryHat"></div><div class="hair"></div><div class="head"></div><div class="face"></div><div class="body"></div></div>
+<div id="player" class="player male"><div class="backpack"></div><div class="accessoryHat"></div><div class="hair"></div><div class="head"></div><div class="face"></div><div class="body"></div><div class="coat"></div><div class="legs"><span class="leg left"></span><span class="leg right"></span></div><div class="shoes"><span class="shoe left"></span><span class="shoe right"></span></div></div>
 </div>
 <div id="hud">
 <div class="hudBox">❤️ Vida<div class="bar"><div id="lifeBar" class="barFill"></div></div><span id="lifeText">100%</span></div>
@@ -202,7 +199,15 @@ let activeSlot=Number(localStorage.getItem("desconectaActiveSlot")||0);
 
 function showScreen(id){document.querySelectorAll(".screen").forEach(s=>s.classList.add("hidden"));document.getElementById(id).classList.remove("hidden")}
 function openCharacterScreen(){showScreen("characterScreen");updateCharacterPreview()}
-function selectGender(v){gender=v;maleChoice.classList.toggle("selected",v==="male");femaleChoice.classList.toggle("selected",v==="female");updateCharacterPreview()}
+function selectGender(v){
+ gender=v;maleChoice.classList.toggle("selected",v==="male");femaleChoice.classList.toggle("selected",v==="female");
+ const primary=document.getElementById("shirtPrimary"),secondary=document.getElementById("shirtSecondary");
+ const primaryValue=v==="female"?"pink":"blue",secondaryValue=v==="female"?"red":"green";
+ primary.textContent=v==="female"?"🌸 Rosa":"🔵 Azul";secondary.textContent=v==="female"?"🔴 Vermelha":"🟢 Verde";
+ primary.onclick=()=>selectClothes(primaryValue,primary);secondary.onclick=()=>selectClothes(secondaryValue,secondary);
+ if(![primaryValue,secondaryValue].includes(clothes))clothes=primaryValue;
+ primary.classList.toggle("selected",clothes===primaryValue);secondary.classList.toggle("selected",clothes===secondaryValue);updateCharacterPreview();
+}
 function selectAge(v,b){age=v;document.querySelectorAll(".ageChoice").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");ageDescription.textContent=ageDescriptionFor(v)}
 function ageDescriptionFor(v){return v===13?"13 anos: matemática básica, multiplicação, divisão simples e geografia introdutória.":v===14?"14 anos: expressões, ordem das operações e geografia um pouco mais aprofundada.":v===15?"15 anos: potências, expressões maiores e questões de geografia mais específicas.":"16 anos: álgebra, distributiva e desafios avançados. O tempo será registrado como recorde."}
 function selectClothes(v,b){clothes=v;b.parentElement.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");updateCharacterPreview()}
@@ -213,10 +218,12 @@ function applyAppearance(el){
  el.className="player "+gender;
  if(unlocked.backpack)el.classList.add("hasBackpack");
  if(unlocked.cap)el.classList.add("hasHat");
+ if(unlocked.coat)el.classList.add("hasCoat");
+ if(unlocked.shoes)el.classList.add("hasShoes");
  el.querySelector(".head").style.background="#f2bd8b";
- el.querySelector(".body").style.background=clothes==="red"?"#d94b55":gender==="female"?"#c94f9d":"#397fd0";
+ const shirtColors={blue:"#397fd0",red:"#d94b55",pink:"#ec6db5",green:"#36a66b"};
+ el.style.setProperty("--shirt-color",shirtColors[clothes]||(gender==="female"?"#ec6db5":"#397fd0"));
  const hair=hairColor==="black"?"#211c1b":"#5a341f";
- el.querySelector(".hair").style.background=hair;
  el.style.setProperty("--hair-color",hair);
 }
 
@@ -235,7 +242,7 @@ function saveCurrentGame(completed=false){
 function loadCurrentGame(){
  const raw=localStorage.getItem("desconectaSave"+activeSlot);if(!raw)return false;
  const d=JSON.parse(raw);if(d.status==="completed")return false;
- age=d.age||13;gender=d.gender||"male";clothes=d.clothes||"blue";hairColor=d.hairColor||"brown";unlocked=d.unlocked||{};coins=Number(d.coins||0);tasks=d.tasks||{};tasksList.forEach(t=>{if(typeof tasks[t]!=="boolean")tasks[t]=false});life=Number(d.life??100);focus=Number(d.focus??100);screenTime=Number(d.screenTime||0);playerX=Number(d.playerX||550);playerY=Number(d.playerY||620);endingData=d.endingData||null;mathRecord=Number(d.mathRecord||0);gameActive=true;phoneOpen=false;warningShown=false;showScreen("gameScreen");updateTaskList();updateHUD();updateWorldItems();updateCharacterOnMap();centerCamera();return true;
+ age=d.age||13;gender=d.gender||"male";clothes=d.clothes||"blue";hairColor=d.hairColor||"brown";unlocked=d.unlocked||{};coins=Number(d.coins||0);selectGender(gender);tasks=d.tasks||{};tasksList.forEach(t=>{if(typeof tasks[t]!=="boolean")tasks[t]=false});life=Number(d.life??100);focus=Number(d.focus??100);screenTime=Number(d.screenTime||0);playerX=Number(d.playerX||550);playerY=Number(d.playerY||620);endingData=d.endingData||null;mathRecord=Number(d.mathRecord||0);gameActive=true;phoneOpen=false;warningShown=false;showScreen("gameScreen");updateTaskList();updateHUD();updateWorldItems();updateCharacterOnMap();centerCamera();return true;
 }
  
 function deleteSaveSlot(n){localStorage.removeItem("desconectaSave"+n);if(activeSlot===n){activeSlot=0;localStorage.removeItem("desconectaActiveSlot")}}

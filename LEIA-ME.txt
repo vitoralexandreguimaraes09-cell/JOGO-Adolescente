@@ -1,22 +1,26 @@
-DESCONECTA! V10 — MENU, SLOTS, ÁUDIO E SESSÃO
+DESconecta! V10.1 - Atualização visual dos personagens
 
 COMO ABRIR
-1. Extraia todos os arquivos do ZIP para uma pasta.
-2. Abra index.html no navegador ou publique todos os arquivos juntos no GitHub Pages.
-3. O menu inicial mostra Novo jogo e Loja. Ao clicar em Novo jogo, aparecem os três slots.
+1. Extraia todos os arquivos do ZIP para a mesma pasta.
+2. Abra index.html para testar no computador.
+3. Para publicar no GitHub Pages, envie todos os arquivos juntos, substituindo os anteriores.
 
 ARQUIVOS
-- index.html: menu inicial estilizado, loja informativa e seleção dos três slots.
-- jogo.html: personagem, casa, tarefas, minigames, loja e jogabilidade.
-- escola.html: cutscene/etapa da escola.
-- sessao.js: controla a sessão e a penalidade de saída.
-- audio.js: música ambiente sintetizada e efeitos sonoros, com botão para ligar/desligar.
+- index.html: menu inicial e seleção dos três slots de save.
+- jogo.html: criação de personagem, jogo, loja e aparência dos personagens.
+- escola.html: sequência da escola.
+- sessao.js: controle da sessão e reinício ao sair e voltar.
+- audio.js: música e efeitos sonoros do navegador.
 
-SESSÃO
-- F5/recarregar: preserva o progresso.
-- Sair/fechar o site e voltar depois: zera os dados do Desconecta! (saves, moedas, compras e progresso) e mostra uma tela escurecida de aviso.
-- A transição entre as páginas do próprio jogo não é considerada uma saída.
-- Navegadores móveis variam na forma como sinalizam fechamento/suspensão; o site usa os eventos de navegação disponíveis. Não é possível detectar com certeza qual aplicativo foi aberto.
+MELHORIAS V10.1
+- Cabelo feminino mais longo nas laterais do rosto.
+- Boné redesenhado com aba, brilho e detalhe frontal.
+- Camisa masculina: azul ou verde.
+- Camisa feminina: rosa ou vermelha.
+- Casaco comprado aparece no personagem.
+- Pés e tênis aparecem sempre; o tênis padrão é preto.
+- Tênis comprado ganha acabamento claro e símbolo decorativo original.
+- Mochila e demais itens continuam ligados às compras da sessão.
 
-IMPORTANTE
-Mantenha os cinco arquivos na mesma pasta. O áudio começa após a primeira interação, pois os navegadores bloqueiam reprodução automática antes de um toque/clique.
+NOTA SOBRE ÁUDIO
+O navegador pode exigir uma primeira interação do usuário antes de tocar áudio.
