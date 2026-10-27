@@ -1,19 +1,22 @@
-DESCONecta! V9
+DESCONECTA! V10 — MENU, SLOTS, ÁUDIO E SESSÃO
 
-Abra index.html para começar.
+COMO ABRIR
+1. Extraia todos os arquivos do ZIP para uma pasta.
+2. Abra index.html no navegador ou publique todos os arquivos juntos no GitHub Pages.
+3. O menu inicial mostra Novo jogo e Loja. Ao clicar em Novo jogo, aparecem os três slots.
 
-ARQUIVOS:
-- index.html = menu principal e gerenciamento dos 3 saves.
-- jogo.html = criação do personagem, casa, tarefas, minigames, telefone, concentração e final da mãe.
-- escola.html = sequência separada da ida para a escola.
+ARQUIVOS
+- index.html: menu inicial estilizado, loja informativa e seleção dos três slots.
+- jogo.html: personagem, casa, tarefas, minigames, loja e jogabilidade.
+- escola.html: cutscene/etapa da escola.
+- sessao.js: controla a sessão e a penalidade de saída.
+- audio.js: música ambiente sintetizada e efeitos sonoros, com botão para ligar/desligar.
 
-SALVAMENTO:
-- Existem 3 slots.
-- Saves em andamento podem ser continuados.
-- Saves zerados mostram somente estatísticas.
-- Um save zerado precisa ser excluído antes de criar outro naquele slot.
-- O jogo salva automaticamente durante a partida.
+SESSÃO
+- F5/recarregar: preserva o progresso.
+- Sair/fechar o site e voltar depois: zera os dados do Desconecta! (saves, moedas, compras e progresso) e mostra uma tela escurecida de aviso.
+- A transição entre as páginas do próprio jogo não é considerada uma saída.
+- Navegadores móveis variam na forma como sinalizam fechamento/suspensão; o site usa os eventos de navegação disponíveis. Não é possível detectar com certeza qual aplicativo foi aberto.
 
-IMPORTANTE:
-- Mantenha os 3 arquivos na mesma pasta.
-- Abra index.html no navegador.
+IMPORTANTE
+Mantenha os cinco arquivos na mesma pasta. O áudio começa após a primeira interação, pois os navegadores bloqueiam reprodução automática antes de um toque/clique.

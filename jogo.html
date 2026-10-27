@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Desconecta!</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,sans-serif;background:#101827;color:#fff}
+button,input{font:inherit}button{cursor:pointer}
+.hidden{display:none!important}
+.screen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+#menuScreen{background:radial-gradient(circle at 50% 20%,#365f91,transparent 35%),linear-gradient(#182b43,#0b1320)}
+.menuBox,.characterBox{width:min(94%,900px);max-height:94vh;overflow:auto;padding:28px;border-radius:26px;background:rgba(12,20,34,.94);border:1px solid #ffffff20;box-shadow:0 25px 70px #0008}
+.menuBox{width:min(92%,520px);text-align:center}
+.gameTitle{font-size:clamp(44px,10vw,76px);margin:0;color:#8fe9ff;text-shadow:0 0 20px #4fdcff80}
+.subtitle{color:#b9c9d9;margin:8px 0 28px}
+.bigButton{width:100%;border:0;border-radius:15px;padding:15px;margin-top:10px;font-weight:bold;color:#fff;background:linear-gradient(135deg,#2388d9,#5b4fe7)}
+.secondaryButton{background:#26364b}.bigButton:active,.miniButton:active{transform:scale(.97)}
+.characterGrid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.preview{min-height:330px;display:flex;align-items:center;justify-content:center;border-radius:20px;background:radial-gradient(circle,#36506c,#182538)}
+.options{display:flex;flex-direction:column;gap:11px}.optionTitle{font-weight:bold;color:#8fe9ff}
+.choiceRow{display:flex;gap:10px}.choice{flex:1;padding:11px;border-radius:12px;border:2px solid #34465d;background:#18283c;color:#fff}.choice.selected{border-color:#55dfff;background:#21445c}
+.ageGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ageChoice{padding:11px;border:2px solid #34465d;border-radius:12px;background:#18283c;color:#fff}.ageChoice.selected{border-color:#65e0ff;background:#21445c}
+.shopGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.shopItem{padding:15px;border-radius:14px;background:#1a2a3e;border:1px solid #34465d}
+.shopItem button{margin-top:8px}.owned{color:#63eb8c;font-weight:bold}
+.player{position:absolute;width:42px;height:62px;z-index:30;transform:translate(-50%,-50%)}
+.player .head{position:absolute;width:27px;height:27px;left:7px;top:0;border-radius:50%;background:#f2bd8b;z-index:2}
+.player .body{position:absolute;left:3px;top:25px;width:35px;height:31px;border-radius:10px 10px 6px 6px;background:#397fd0}
+.player.female .body{background:#c94f9d}
+.player .hair{position:absolute;left:5px;top:-3px;width:31px;height:15px;border-radius:18px 18px 7px 7px;background:#5a341f;z-index:4}
+.player.female .hair {
+  height: 10px;
+  top: -2px;
+  border-radius: 18px 18px 4px 4px;
+  box-shadow:
+    -4px 5px 0 -3px var(--hair-color),
+     4px 5px 0 -3px var(--hair-color);
+  z-index: 3;
+}
+
+.player .face {
+  position: absolute;
+  z-index: 5;
+  top: 9px;
+  left: 12px;
+  font-size: 12px;
+  color: #3b241c;
+  pointer-events: none;
+}
+.face{position:absolute;z-index:5;top:9px;left:12px;font-size:12px;color:#3b241c;pointer-events:none}
+.player.male .face:after{content:"•  •";letter-spacing:1px}
+.player.female .face:after{content:"•  •";letter-spacing:1px}
+.accessoryHat{position:absolute;z-index:6;left:2px;top:-9px;width:38px;height:12px;background:#263c85;border-radius:10px 10px 2px 2px;display:none}
+.player.hasHat .accessoryHat{display:block}
+.player .backpack{position:absolute;z-index:1;left:-7px;top:28px;width:10px;height:24px;border-radius:7px;background:#e2a53b;display:none}
+.player.hasBackpack .backpack{display:block}
+#gameScreen{background:#80b96a;overflow:hidden}
+#world{position:absolute;width:2400px;height:1800px;background:linear-gradient(#84bd70 0 58%,#6ba05b 58%);left:0;top:0}
+.road{position:absolute;background:#555c62}.road.horizontal{left:0;top:780px;width:2400px;height:150px}.road.vertical{left:1080px;top:0;width:150px;height:1800px}
+.house{position:absolute;width:600px;height:480px;left:400px;top:210px;background:#e7b17b;border-radius:8px;box-shadow:0 18px 30px #0003}
+.houseRoof{position:absolute;left:-45px;top:-175px;width:690px;height:260px;background:#b76d45;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.houseRoofDetail{position:absolute;left:0;right:0;bottom:0;height:18px;background:#a45e3c}
+.houseDoor{position:absolute;bottom:0;left:270px;width:90px;height:145px;background:#a86b42;border:0;box-shadow:none;border-radius:8px 8px 0 0}
+.atticWindow{position:absolute;left:267px;top:-105px;width:66px;height:66px;border-radius:50%;background:#bfeaff;border:7px solid #8b5439;box-shadow:inset 0 0 0 4px #e7c091;overflow:hidden}
+.atticWindow:before,.atticWindow:after{content:"";position:absolute;background:#8b5439}.atticWindow:before{width:5px;height:100%;left:50%;top:0;transform:translateX(-50%)}.atticWindow:after{height:5px;width:100%;top:50%;left:0;transform:translateY(-50%)}
+.window{position:absolute;width:92px;height:85px;border-radius:8px;background:#9de1f5;border:8px solid #8d5b3e;box-shadow:inset 0 0 0 3px #e9d4a8}.window.left{left:75px;top:150px}.window.right{right:75px;top:150px}
+.tree{position:absolute;width:100px;height:140px}.tree:before{content:"";position:absolute;bottom:0;left:42px;width:20px;height:60px;background:#68452d;border-radius:8px}.tree:after{content:"";position:absolute;top:0;left:0;width:100px;height:100px;border-radius:50%;background:#2f7d42;box-shadow:35px -12px 0 #3b8f4d,60px 20px 0 #347d43,10px 30px 0 #429951}
+.taskObject{position:absolute;z-index:10;width:100px;height:80px;border-radius:15px;background:#192735eb;border:2px solid #fff3;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:30px;box-shadow:0 10px 20px #0002}.taskObject span{font-size:12px;font-weight:bold}.taskObject.completed{opacity:.32;filter:grayscale(1)}
+#task-bag{width:105px;height:85px;background:#293d52}
+#hud{position:absolute;z-index:100;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;gap:7px;pointer-events:none}.hudBox{pointer-events:auto;background:#08111cdd;border:1px solid #fff2;border-radius:13px;padding:7px 10px;font-size:12px}.bar{width:125px;height:9px;background:#293646;border-radius:10px;overflow:hidden;margin-top:3px}.barFill{height:100%;width:100%;background:#48d67a;transition:.3s}.focusFill{background:#55cfff}
+#taskPanel{position:absolute;z-index:100;top:88px;right:10px;width:235px;background:#08111ce8;border-radius:15px;padding:10px}.taskLine{padding:4px;font-size:12px;color:#c8d2de}.taskLine.done{color:#62e68a;text-decoration:line-through}
+#interactHint{position:absolute;z-index:120;bottom:125px;left:50%;transform:translateX(-50%);background:#08111cf2;border-radius:12px;padding:9px 14px;font-weight:bold}
+#joystick{position:absolute;z-index:150;left:20px;bottom:23px;width:125px;height:125px;border-radius:50%;background:#fff2;border:2px solid #fff3;touch-action:none}#stick{position:absolute;width:55px;height:55px;border-radius:50%;left:35px;top:35px;background:#ffffff66}
+#actionButton{position:absolute;z-index:150;right:23px;bottom:28px;width:74px;height:74px;border:0;border-radius:50%;background:#55cfff;color:#07131e;font-weight:900}
+.phoneButton{position:absolute;z-index:140;right:18px;bottom:120px;width:60px;height:60px;border:0;border-radius:50%;background:#252d3b;color:#fff;font-size:24px}
+#focusEffect{position:absolute;inset:0;z-index:90;pointer-events:none;opacity:0;background:radial-gradient(circle,transparent 20%,#474bff18 68%,#ff003c45);transition:.4s}.lowFocus{animation:shake .5s infinite}.criticalFocus{animation:shake .24s infinite}@keyframes shake{0%,100%{transform:translate(0)}25%{transform:translate(2px,-1px)}50%{transform:translate(-2px,2px)}75%{transform:translate(1px,1px)}}
+.modalLayer{position:absolute;inset:0;z-index:300;background:#000b;display:flex;align-items:center;justify-content:center;padding:14px}.modal{width:min(94%,680px);max-height:92vh;overflow:auto;background:#111e2d;border:1px solid #fff2;border-radius:24px;padding:22px;box-shadow:0 30px 70px #0008}.modal h2{margin-top:0;color:#7be1ff}.closeButton{float:right;border:0;background:#2b3a4d;color:#fff;border-radius:10px;padding:7px 11px}
+.miniScene{min-height:300px;border-radius:18px;background:linear-gradient(135deg,#1a2c3e,#0d1724);padding:20px;position:relative;overflow:hidden}.miniInstruction{color:#b9c9d9}.progress{height:13px;border-radius:10px;background:#263647;overflow:hidden;margin:14px 0}.progressFill{width:0;height:100%;background:#58d99a;transition:.25s}.miniButton{border:0;border-radius:11px;padding:11px 14px;background:#263b52;color:#fff;font-weight:bold}
+.trashItem,.dirtSpot,.bathSpot,.roomItem{position:absolute;cursor:pointer;user-select:none}.trashItem{font-size:42px;transition:.2s}.trashItem.removed{transform:scale(0);opacity:0}.dirtSpot{width:38px;height:28px;border-radius:50%;background:#6b513d;box-shadow:0 4px 6px #0005}.dirtSpot.cleaned{transform:scale(0);opacity:0}.bathSpot{width:55px;height:40px;border-radius:15px;background:#8b6d59}.bathSpot.cleaned{background:#9fe7fa;transform:scale(.85)}
+.bedMini{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:280px;height:150px;border-radius:15px;background:#6c4d39}.mattress{position:absolute;inset:15px;border-radius:12px;background:#d8e9f0}.blanket{position:absolute;left:50%;bottom:15px;width:110px;height:100px;transform:translateX(-50%);border-radius:10px;background:#70a7d5;cursor:pointer}.pillow{position:absolute;top:30px;width:65px;height:42px;border-radius:12px;background:#fff;cursor:pointer}.pillow.one{left:45px}.pillow.two{right:45px}.fixed{opacity:.45;transform:scale(.9)}
+.roomTarget{position:absolute;border:2px dashed #65dfff;border-radius:12px;padding:10px;color:#72dfff;font-size:12px;cursor:pointer}.roomItem{font-size:43px;padding:7px;border-radius:12px}
+.questionBox{text-align:center}.questionNumber{color:#83dfff;font-size:13px}.questionText{font-size:23px;font-weight:bold;margin:18px 0}.answerGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.answerButton{padding:14px;border:2px solid #32465c;border-radius:13px;background:#1b2d40;color:#fff;font-size:16px;font-weight:bold}.answerButton:active{transform:scale(.97)}.feedback{min-height:28px;margin-top:12px;font-weight:bold}.feedback.correct{color:#61ed8c}.feedback.wrong{color:#ff8b8b}.attempts{color:#b8c8d8;font-size:13px}
+.recordBox{padding:10px;border-radius:12px;background:#172b3e;margin:10px 0;color:#b9d0df}.recordValue{font-size:24px;color:#71e4ff;font-weight:bold}
+#cutscene{position:absolute;inset:0;z-index:1000;background:#080e17;display:flex;align-items:center;justify-content:center}.cutsceneRoom{position:absolute;inset:0;background:linear-gradient(#304b61 0 60%,#8c6248 60%)}.cutsceneActor{position:absolute;bottom:23%;left:50%;transform:translateX(-50%);width:115px;height:200px;animation:actorBob 1.8s ease-in-out infinite}@keyframes actorBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}.actorHead{position:absolute;width:75px;height:75px;left:20px;top:0;border-radius:50%;background:#eab38b}.actorHair{position:absolute;width:86px;height:92px;left:14px;top:-12px;border-radius:48px 48px 25px 25px;background:#5a3425}.actorBody{position:absolute;left:10px;top:68px;width:95px;height:130px;border-radius:25px 25px 10px 10px;background:#9a5bc8}.actorFace{position:absolute;z-index:5;top:24px;left:39px;font-size:16px;color:#3b241c}.actorFace:after{content:"•  •"}.schoolDesk{position:absolute;bottom:18%;left:50%;transform:translateX(-50%);width:300px;height:45px;border-radius:10px;background:#8c5c3d;box-shadow:0 18px 0 #67432e}.cutsceneText{position:absolute;bottom:4%;left:50%;transform:translateX(-50%);width:min(92%,760px);padding:18px 20px;border-radius:20px;background:#070e17f2;border:1px solid #fff2}.cutsceneText h2{margin:0 0 8px;color:#7fe4ff}.cutsceneText p{margin:0;line-height:1.5}.cutsceneButton{margin-top:12px;padding:11px 20px;border:0;border-radius:12px;background:#5bd5ff;color:#08131d;font-weight:bold}
+@media(max-width:700px){.characterGrid{grid-template-columns:1fr}.preview{min-height:220px}.shopGrid{grid-template-columns:1fr}.ageGrid{grid-template-columns:repeat(2,1fr)}#taskPanel{top:auto;bottom:100px;width:180px;font-size:11px}.bar{width:82px}.hudBox{font-size:10px;padding:6px}.answerGrid{grid-template-columns:1fr}.questionText{font-size:20px}}
+</style>
+</head>
+<body>
+
+<section id="menuScreen" class="screen">
+<div class="menuBox">
+<h1 class="gameTitle">Desconecta!</h1>
+<p class="subtitle">Cuide das suas tarefas, da sua concentração e descubra até onde você consegue chegar.</p>
+<button class="bigButton" onclick="openCharacterScreen()">🎮 Novo jogo</button>
+<button class="bigButton secondaryButton" onclick="openShop()">🛍️ Loja</button>
+</div>
+</section>
+
+<section id="characterScreen" class="screen hidden">
+<div class="characterBox">
+<h2>✨ Crie seu personagem</h2>
+<div class="characterGrid">
+<div class="preview">
+<div id="characterPreview" class="player male">
+<div class="backpack"></div><div class="accessoryHat"></div><div class="hair"></div><div class="head"></div><div class="face"></div><div class="body"></div>
+</div>
+</div>
+<div class="options">
+<div class="optionTitle">Personagem</div>
+<div class="choiceRow">
+<button id="maleChoice" class="choice selected" onclick="selectGender('male')">👦 Masculino</button>
+<button id="femaleChoice" class="choice" onclick="selectGender('female')">👧 Feminino</button>
+</div>
+<div class="optionTitle">Idade</div>
+<div class="ageGrid">
+<button class="ageChoice selected" onclick="selectAge(13,this)">13</button>
+<button class="ageChoice" onclick="selectAge(14,this)">14</button>
+<button class="ageChoice" onclick="selectAge(15,this)">15</button>
+<button class="ageChoice" onclick="selectAge(16,this)">16</button>
+</div>
+<p id="ageDescription" style="color:#a9bfd1;font-size:13px">13 anos: matemática e geografia em nível básico.</p>
+<div class="optionTitle">Camisa</div>
+<div class="choiceRow">
+<button class="choice selected" onclick="selectClothes('blue',this)">🔵 Azul</button>
+<button class="choice" onclick="selectClothes('red',this)">🔴 Vermelha</button>
+</div>
+<div class="optionTitle">Rosto e cabelo</div>
+<div class="choiceRow">
+<button class="choice selected" onclick="selectHair('brown',this)">🤎 Castanho</button>
+<button class="choice" onclick="selectHair('black',this)">🖤 Preto</button>
+</div>
+<button class="bigButton" onclick="startNewGame()">▶ Começar</button>
+<button class="bigButton secondaryButton" onclick="showScreen('menuScreen')">Voltar</button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="shopScreen" class="screen hidden">
+<div class="characterBox">
+<h2>🛍️ Loja</h2>
+<p>Moedas: <strong id="shopCoins">0</strong></p>
+<div class="shopGrid">
+<div class="shopItem">🎒 Mochila<br><small>Ela aparece dentro da casa e pode levar você para a escola.</small><br><button class="miniButton" onclick="buyItem('backpack')">Comprar por 500</button><div id="owned-backpack"></div></div>
+<div class="shopItem">🧥 Casaco<br><small>Um visual novo para o personagem.</small><br><button class="miniButton" onclick="buyItem('coat')">Comprar por 700</button><div id="owned-coat"></div></div>
+<div class="shopItem">👟 Tênis<br><small>Um novo par de sapatos.</small><br><button class="miniButton" onclick="buyItem('shoes')">Comprar por 300</button><div id="owned-shoes"></div></div>
+<div class="shopItem">🧢 Boné<br><small>Um acessório para o personagem.</small><br><button class="miniButton" onclick="buyItem('cap')">Comprar por 300</button><div id="owned-cap"></div></div>
+</div>
+<button class="bigButton secondaryButton" onclick="closeShop()">Voltar</button>
+</div>
+</section>
+
+<section id="gameScreen" class="screen hidden">
+<div id="world">
+<div class="road horizontal"></div><div class="road vertical"></div>
+<div class="house"><div class="houseRoof"><div class="houseRoofDetail"></div></div><div class="atticWindow"></div><div class="window left"></div><div class="window right"></div><div class="houseDoor"></div></div>
+<div class="tree" style="left:100px;top:160px"></div><div class="tree" style="left:900px;top:80px"></div><div class="tree" style="left:1450px;top:260px"></div><div class="tree" style="left:1800px;top:100px"></div><div class="tree" style="left:2000px;top:1100px"></div><div class="tree" style="left:300px;top:1200px"></div>
+<div id="task-trash" class="taskObject" style="left:470px;top:730px" onclick="tryOpenTask('trash')">🗑️<span>Lixo</span></div>
+<div id="task-bed" class="taskObject" style="left:590px;top:330px" onclick="tryOpenTask('bed')">🛏️<span>Cama</span></div>
+<div id="task-clean" class="taskObject" style="left:760px;top:330px" onclick="tryOpenTask('clean')">🧹<span>Limpeza</span></div>
+<div id="task-bath" class="taskObject" style="left:820px;top:540px" onclick="tryOpenTask('bath')">🚿<span>Banheiro</span></div>
+<div id="task-room" class="taskObject" style="left:520px;top:540px" onclick="tryOpenTask('room')">🧸<span>Quarto</span></div>
+<div id="task-math" class="taskObject" style="left:1320px;top:850px" onclick="tryOpenTask('math')">➗<span>Matemática</span></div>
+<div id="task-geo" class="taskObject" style="left:1510px;top:850px" onclick="tryOpenTask('geo')">🌎<span>Geografia</span></div>
+<div id="task-bag" class="taskObject hidden" style="left:515px;top:620px" onclick="interactBackpack()">🎒<span>Mochila</span></div>
+<div id="player" class="player male"><div class="backpack"></div><div class="accessoryHat"></div><div class="hair"></div><div class="head"></div><div class="face"></div><div class="body"></div></div>
+</div>
+<div id="hud">
+<div class="hudBox">❤️ Vida<div class="bar"><div id="lifeBar" class="barFill"></div></div><span id="lifeText">100%</span></div>
+<div class="hudBox">🧠 Concentração<div class="bar"><div id="focusBar" class="barFill focusFill"></div></div><span id="focusText">100%</span></div>
+<div class="hudBox">📱 Tela: <span id="screenTime">0</span>s</div><div class="hudBox">🪙 <span id="coins">0</span></div>
+</div>
+<div id="taskPanel"><strong>📋 Tarefas</strong>
+<div id="task-trash-line" class="taskLine">⬜ Tirar o lixo</div><div id="task-bed-line" class="taskLine">⬜ Arrumar a cama</div><div id="task-clean-line" class="taskLine">⬜ Limpar a casa</div><div id="task-bath-line" class="taskLine">⬜ Limpar o banheiro</div><div id="task-room-line" class="taskLine">⬜ Organizar o quarto</div><div id="task-math-line" class="taskLine">⬜ Matemática</div><div id="task-geo-line" class="taskLine">⬜ Geografia</div>
+</div>
+<div id="focusEffect"></div><div id="interactHint" class="hidden"></div>
+<div id="joystick"><div id="stick"></div></div><button id="actionButton" onclick="interactNearby()">E</button><button class="phoneButton" onclick="openPhone()">📱</button>
+</section>
+
+<div id="modalLayer" class="modalLayer hidden"><div id="modalContent" class="modal"></div></div>
+
+<div id="cutscene" class="hidden">
+<div id="cutsceneBackground" class="cutsceneRoom"></div>
+<div id="schoolDesk" class="schoolDesk hidden"></div>
+<div id="cutsceneActor" class="cutsceneActor"><div class="actorHair"></div><div class="actorHead"></div><div class="actorFace"></div><div class="actorBody"></div></div>
+<div class="cutsceneText"><h2 id="cutsceneTitle"></h2><p id="cutsceneMessage"></p><button class="cutsceneButton" onclick="nextCutscene()">Continuar</button></div>
+</div>
+
+<script src="sessao.js"></script><script src="audio.js"></script><script>
+const tasksList=["trash","bed","clean","bath","room","math","geo"];
+const taskNames={trash:"Tirar o lixo",bed:"Arrumar a cama",clean:"Limpar a casa",bath:"Limpar o banheiro",room:"Organizar o quarto",math:"Matemática",geo:"Geografia"};
+let tasks={}; let gameActive=false; let life=100,focus=100,screenTime=0; let coins=Number(localStorage.getItem("desconectaCoins")||0);
+let gender="male",age=13,clothes="blue",hairColor="brown"; let unlocked=JSON.parse(localStorage.getItem("desconectaUnlocked")||"{}");
+let playerX=550,playerY=620,joystickX=0,joystickY=0,keys={},phoneOpen=false,phoneInterval=null,lifeInterval=null,warningShown=false;
+let cutsceneStep=0,endingData=null,schoolAfterEnding=false,cutsceneScenes=[]; let mathRecord=Number(localStorage.getItem("desconectaMathRecord")||0);
+const player=document.getElementById("player"),world=document.getElementById("world"),modalLayer=document.getElementById("modalLayer"),modalContent=document.getElementById("modalContent");
+const lifeBar=document.getElementById("lifeBar"),focusBar=document.getElementById("focusBar"),lifeText=document.getElementById("lifeText"),focusText=document.getElementById("focusText"),screenTimeText=document.getElementById("screenTime"),coinsText=document.getElementById("coins"),focusEffect=document.getElementById("focusEffect"),gameScreen=document.getElementById("gameScreen");
+let activeSlot=Number(localStorage.getItem("desconectaActiveSlot")||0);
+
+function showScreen(id){document.querySelectorAll(".screen").forEach(s=>s.classList.add("hidden"));document.getElementById(id).classList.remove("hidden")}
+function openCharacterScreen(){showScreen("characterScreen");updateCharacterPreview()}
+function selectGender(v){gender=v;maleChoice.classList.toggle("selected",v==="male");femaleChoice.classList.toggle("selected",v==="female");updateCharacterPreview()}
+function selectAge(v,b){age=v;document.querySelectorAll(".ageChoice").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");ageDescription.textContent=ageDescriptionFor(v)}
+function ageDescriptionFor(v){return v===13?"13 anos: matemática básica, multiplicação, divisão simples e geografia introdutória.":v===14?"14 anos: expressões, ordem das operações e geografia um pouco mais aprofundada.":v===15?"15 anos: potências, expressões maiores e questões de geografia mais específicas.":"16 anos: álgebra, distributiva e desafios avançados. O tempo será registrado como recorde."}
+function selectClothes(v,b){clothes=v;b.parentElement.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");updateCharacterPreview()}
+function selectHair(v,b){hairColor=v;b.parentElement.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");updateCharacterPreview()}
+function updateCharacterPreview(){applyAppearance(document.getElementById("characterPreview"));}
+
+function applyAppearance(el){
+ el.className="player "+gender;
+ if(unlocked.backpack)el.classList.add("hasBackpack");
+ if(unlocked.cap)el.classList.add("hasHat");
+ el.querySelector(".head").style.background="#f2bd8b";
+ el.querySelector(".body").style.background=clothes==="red"?"#d94b55":gender==="female"?"#c94f9d":"#397fd0";
+ const hair=hairColor==="black"?"#211c1b":"#5a341f";
+ el.querySelector(".hair").style.background=hair;
+ el.style.setProperty("--hair-color",hair);
+}
+
+function resetRunState(){
+ life=100;focus=100;screenTime=0;warningShown=false;endingData=null;cutsceneStep=0;schoolAfterEnding=false;phoneOpen=false;playerX=550;playerY=620;keys={};joystickX=0;joystickY=0;
+ tasks={};tasksList.forEach(t=>tasks[t]=false);
+ if(phoneInterval){clearInterval(phoneInterval);phoneInterval=null} if(lifeInterval){clearInterval(lifeInterval);lifeInterval=null}
+ modalLayer.classList.add("hidden");document.getElementById("cutscene").classList.add("hidden");
+ updateHUD();updateTaskList();
+}
+function saveCurrentGame(completed=false){
+ if(!activeSlot)return;
+ const data={version:9,status:completed?"completed":"active",age,gender,clothes,hairColor,unlocked:{...unlocked},coins,tasks:{...tasks},life,focus,screenTime,playerX,playerY,endingData,mathRecord,savedAt:new Date().toISOString()};
+ localStorage.setItem("desconectaSave"+activeSlot,JSON.stringify(data));
+}
+function loadCurrentGame(){
+ const raw=localStorage.getItem("desconectaSave"+activeSlot);if(!raw)return false;
+ const d=JSON.parse(raw);if(d.status==="completed")return false;
+ age=d.age||13;gender=d.gender||"male";clothes=d.clothes||"blue";hairColor=d.hairColor||"brown";unlocked=d.unlocked||{};coins=Number(d.coins||0);tasks=d.tasks||{};tasksList.forEach(t=>{if(typeof tasks[t]!=="boolean")tasks[t]=false});life=Number(d.life??100);focus=Number(d.focus??100);screenTime=Number(d.screenTime||0);playerX=Number(d.playerX||550);playerY=Number(d.playerY||620);endingData=d.endingData||null;mathRecord=Number(d.mathRecord||0);gameActive=true;phoneOpen=false;warningShown=false;showScreen("gameScreen");updateTaskList();updateHUD();updateWorldItems();updateCharacterOnMap();centerCamera();return true;
+}
+ 
+function deleteSaveSlot(n){localStorage.removeItem("desconectaSave"+n);if(activeSlot===n){activeSlot=0;localStorage.removeItem("desconectaActiveSlot")}}
+function startNewGame(){
+ if(!activeSlot){showSimpleModal("💾 Escolha um save","Volte ao menu e escolha um slot de save antes de começar.");return}
+ coins=Number(localStorage.getItem("desconectaCoins")||coins||0);unlocked=JSON.parse(localStorage.getItem("desconectaUnlocked")||JSON.stringify(unlocked||{}));
+ resetRunState();gameActive=true;showScreen("gameScreen");updateWorldItems();updateCharacterOnMap();centerCamera();saveCurrentGame();
+}
+function updateHUD(){life=Math.max(0,Math.min(100,life));focus=Math.max(0,Math.min(100,focus));lifeBar.style.width=life+"%";focusBar.style.width=focus+"%";lifeText.textContent=Math.round(life)+"%";focusText.textContent=Math.round(focus)+"%";screenTimeText.textContent=Math.floor(screenTime);coinsText.textContent=coins;updateFocusEffects();if(life<=0&&gameActive){gameActive=false;showSimpleModal("💤 Você ficou sem energia","Sua vida chegou a 0%.")}
+}
+function updateFocusEffects(){if(focus<=30){focusEffect.style.opacity=Math.min(.72,(31-focus)/30*.72);gameScreen.classList.add("lowFocus")}else{focusEffect.style.opacity=0;gameScreen.classList.remove("lowFocus","criticalFocus")}if(focus<=10)gameScreen.classList.add("criticalFocus");if(focus<=0&&!warningShown){warningShown=true;showSimpleModal("⚠️ Concentração zerada!","Sua concentração chegou a 0%. Agora você está muito lento e sua vida começa a diminuir.");startLifeDrain()}}
+function startLifeDrain(){if(lifeInterval)return;lifeInterval=setInterval(()=>{if(gameActive&&focus<=0){life-=5;updateHUD()}},3000)}
+function gainFocus(n){focus=Math.min(100,focus+n);updateHUD()}
+function updateTaskList(){tasksList.forEach(t=>{let l=document.getElementById("task-"+t+"-line"),o=document.getElementById("task-"+t);if(tasks[t]){l.classList.add("done");l.textContent="✅ "+taskNames[t];o.classList.add("completed")}else{l.classList.remove("done");l.textContent="⬜ "+taskNames[t];o.classList.remove("completed")}})}
+function completeTask(t){if(tasks[t])return;tasks[t]=true;gainFocus(20);coins+=100;saveCoins();updateTaskList();updateWorldItems();saveCurrentGame();checkAllTasks()}
+function checkAllTasks(){if(tasksList.every(t=>tasks[t]))setTimeout(()=>startEnding(),700)}
+function tryOpenTask(t){if(!gameActive)return;if(tasks[t]){showSimpleModal("✅ Tarefa concluída","Você já terminou essa tarefa.");return}openTask(t)}
+function interactNearby(){
+ let best=null,dist=Infinity;
+ [...tasksList,"bag"].forEach(t=>{if(t!=="bag"&&tasks[t])return;let el=t==="bag"?document.getElementById("task-bag"):document.getElementById("task-"+t);if(!el||el.classList.contains("hidden"))return;let x=el.offsetLeft+50,y=el.offsetTop+40,d=Math.hypot(playerX-x,playerY-y);if(d<dist){dist=d;best=t}});
+ if(best&&dist<140){best==="bag"?interactBackpack():openTask(best)}else showSimpleModal("🚶 Chegue mais perto","Aproxime-se de uma tarefa ou da mochila para interagir.")
+}
+function openModal(html){modalContent.innerHTML=html;modalLayer.classList.remove("hidden")}
+function closeModal(){modalLayer.classList.add("hidden")}
+function showSimpleModal(t,m){openModal(`<button class="closeButton" onclick="closeModal()">✕</button><h2>${t}</h2><p style="line-height:1.6">${m}</p><button class="bigButton" onclick="closeModal()">Continuar</button>`)}
+function openTask(t){if(phoneOpen)return;({trash:startTrashMiniGame,bed:startBedMiniGame,clean:startCleaningMiniGame,bath:startBathroomMiniGame,room:startRoomMiniGame,math:()=>startQuestionGame("math"),geo:()=>startQuestionGame("geo")}[t])()}
+
+/* MINIGAMES */
+function startTrashMiniGame(){openModal(`<button class="closeButton" onclick="closeModal()">✕</button><h2>🗑️ Hora de tirar o lixo</h2><p class="miniInstruction">Recolha o lixo espalhado e depois leve o saco até a porta.</p><div class="miniScene" id="trashScene"><div class="trashItem" style="left:50px;top:80px" onclick="removeTrash(this)">🥤</div><div class="trashItem" style="left:180px;top:130px" onclick="removeTrash(this)">🍎</div><div class="trashItem" style="left:300px;top:70px" onclick="removeTrash(this)">📦</div><div class="trashItem" style="left:120px;top:220px" onclick="removeTrash(this)">🧻</div><div class="trashItem" style="left:380px;top:190px" onclick="removeTrash(this)">🧴</div></div><p id="trashStatus">Lixo recolhido: 0/5</p><button id="trashFinish" class="bigButton hidden" onclick="finishTrash()">🗑️ Levar o saco para fora</button>`);window.trashCount=0}
+function removeTrash(e){if(e.classList.contains("removed"))return;e.classList.add("removed");window.trashCount++;trashStatus.textContent=`Lixo recolhido: ${window.trashCount}/5`;if(window.trashCount>=5)trashFinish.classList.remove("hidden")}
+function finishTrash(){closeModal();completeTask("trash");showSimpleModal("🗑️ Muito bem!","Você recolheu tudo e levou o lixo para fora. +20% de concentração!")}
+function startBedMiniGame(){openModal(`<button class="closeButton" onclick="closeModal()">✕</button><h2>🛏️ Arrumando a cama</h2><p class="miniInstruction">Arrume os dois travesseiros e depois estique a coberta.</p><div class="miniScene"><div class="bedMini"><div class="mattress"></div><div id="pillow1" class="pillow one" onclick="fixPillow(1)"></div><div id="pillow2" class="pillow two" onclick="fixPillow(2)"></div><div id="blanket" class="blanket" onclick="fixBlanket()"></div></div></div><div class="progress"><div id="bedProgress" class="progressFill"></div></div><p id="bedStatus">0/3 partes arrumadas</p>`);window.bedPillows=[]}
+function fixPillow(n){if(window.bedPillows.includes(n))return;window.bedPillows.push(n);document.getElementById("pillow"+n).classList.add("fixed");updateBedProgress()}
+function fixBlanket(){if(window.bedPillows.length<2){bedStatus.textContent="Primeiro arrume os dois travesseiros!";return}document.getElementById("blanket").classList.add("fixed");window.bedPillows.push(3);updateBedProgress();setTimeout(()=>{closeModal();completeTask("bed");showSimpleModal("🛏️ Cama pronta!","Tudo organizado. +20% de concentração!")},500)}
+function updateBedProgress(){bedProgress.style.width=(window.bedPillows.length/3*100)+"%";bedStatus.textContent=`${window.bedPillows.length}/3 partes arrumadas`}
+function startCleaningMiniGame(){openModal(`<button class="closeButton" onclick="closeModal()">✕</button><h2>🧹 Limpeza da casa</h2><p class="miniInstruction">Encontre os pontos de sujeira e limpe todos.</p><div class="miniScene"><div class="dirtSpot" style="left:50px;top:80px" onclick="cleanSpot(this)"></div><div class="dirtSpot" style="left:210px;top:130px" onclick="cleanSpot(this)"></div><div class="dirtSpot" style="left:350px;top:70px" onclick="cleanSpot(this)"></div><div class="dirtSpot" style="left:130px;top:230px" onclick="cleanSpot(this)"></div><div class="dirtSpot" style="left:400px;top:220px" onclick="cleanSpot(this)"></div><div class="dirtSpot" style="left:280px;top:250px" onclick="cleanSpot(this)"></div></div><p id="cleanStatus">Sujeiras limpas: 0/6</p>`);window.cleanCount=0}
+function cleanSpot(e){if(e.classList.contains("cleaned"))return;e.classList.add("cleaned");window.cleanCount++;cleanStatus.textContent=`Sujeiras limpas: ${window.cleanCount}/6`;if(window.cleanCount>=6)setTimeout(()=>{closeModal();completeTask("clean");showSimpleModal("🧹 Casa limpa!","Você deixou tudo em ordem. +20% de concentração!")},500)}
+function startBathroomMiniGame(){openModal(`<button class="closeButton" onclick="closeModal()">✕</button><h2>🚿 Limpando o banheiro</h2><p class="miniInstruction">Clique nas áreas sujas para esfregar.</p><div class="miniScene"><div class="bathSpot" style="left:60px;top:80px" onclick="cleanBath(this)"></div><div class="bathSpot" style="left:210px;top:160px" onclick="cleanBath(this)"></div><div class="bathSpot" style="left:350px;top:90px" onclick="cleanBath(this)"></div><div class="bathSpot" style="left:150px;top:240px" onclick="cleanBath(this)"></div></div><p id="bathStatus">Áreas limpas: 0/4</p>`);window.bathCount=0}
+function cleanBath(e){if(e.classList.contains("cleaned"))return;e.classList.add("cleaned");window.bathCount++;bathStatus.textContent=`Áreas limpas: ${window.bathCount}/4`;if(window.bathCount>=4)setTimeout(()=>{closeModal();completeTask("bath");showSimpleModal("🚿 Banheiro limpo!","Tudo limpo. +20% de concentração!")},500)}
+function startRoomMiniGame(){openModal(`<button class="closeButton" onclick="closeModal()">✕</button><h2>🧸 Organizando o quarto</h2><p class="miniInstruction">Selecione um objeto e coloque-o no lugar correto.</p><div class="miniScene"><div class="roomTarget" style="left:25px;bottom:25px;width:120px" onclick="placeRoomItem('toy')">🗃️ Caixa</div><div class="roomTarget" style="right:25px;top:25px;width:120px" onclick="placeRoomItem('book')">📚 Estante</div><div class="roomTarget" style="right:25px;bottom:25px;width:120px" onclick="placeRoomItem('clothes')">👕 Guarda-roupa</div><div id="roomToy" class="roomItem" style="left:180px;top:50px" onclick="selectRoomItem('toy')">🧸</div><div id="roomBook" class="roomItem" style="left:260px;top:130px" onclick="selectRoomItem('book')">📕</div><div id="roomClothes" class="roomItem" style="left:360px;top:210px" onclick="selectRoomItem('clothes')">👕</div></div><p id="roomStatus">Nenhum objeto selecionado.</p>`);window.selectedRoom=null;window.roomDone=0}
+function selectRoomItem(t){window.selectedRoom=t;roomStatus.textContent="Agora clique no lugar correto."}
+function placeRoomItem(target){if(!window.selectedRoom){roomStatus.textContent="Primeiro selecione um objeto.";return}if(window.selectedRoom!==target){roomStatus.textContent="❌ Esse não é o lugar certo.";return}document.getElementById({toy:"roomToy",book:"roomBook",clothes:"roomClothes"}[target]).style.opacity=".2";document.getElementById({toy:"roomToy",book:"roomBook",clothes:"roomClothes"}[target]).style.pointerEvents="none";window.roomDone++;window.selectedRoom=null;roomStatus.textContent=`✅ Certo! ${window.roomDone}/3`;if(window.roomDone>=3)setTimeout(()=>{closeModal();completeTask("room");showSimpleModal("🧸 Quarto organizado!","Tudo voltou para o lugar. +20% de concentração!")},500)}
+
+/* PERGUNTAS POR IDADE */
+const mathByAge={
+13:[
+["Quanto é 7 + 8?",["13","15","16","18"],"15"],["Quanto é 6 × 4?",["20","24","26","28"],"24"],["Quanto é 36 ÷ 6?",["5","6","7","8"],"6"],["Quanto é 15 - 7?",["6","7","8","9"],"8"],["Quanto é 9 × 5?",["40","45","50","54"],"45"],["Quanto é 42 ÷ 7?",["5","6","7","8"],"6"],["Quanto é 20 + 13?",["31","32","33","34"],"33"],["Quanto é 8 × 8?",["54","56","64","72"],"64"]],
+14:[
+["Quanto é 2 + 2 × 2 ÷ 2?",["3","4","5","6"],"4"],["Quanto é (12 + 8) ÷ 4?",["4","5","6","7"],"5"],["Quanto é 7 × 6 - 9?",["31","33","35","39"],"33"],["Quanto é 48 ÷ 6 + 7?",["13","15","16","17"],"15"],["Quanto é 5 × (3 + 2)?",["20","25","30","35"],"25"],["Quanto é 100 - 8 × 7?",["36","42","44","52"],"44"],["Quanto é (18 - 6) × 3?",["30","36","40","42"],"36"],["Quanto é 72 ÷ (3 × 4)?",["4","6","8","12"],"6"]],
+15:[
+["Quanto é 2² + 3 × 4?",["14","16","20","24"],"16"],["Quanto é 5² - 3 × 4?",["11","12","13","14"],"13"],["Quanto é 3³ ÷ 9?",["2","3","6","9"],"3"],["Quanto é (8 + 4)² ÷ 6?",["18","20","24","28"],"24"],["Quanto é 2³ + 5²?",["31","32","33","34"],"33"],["Quanto é 4² × 3 - 8?",["36","40","44","48"],"40"],["Quanto é (15 - 3)² ÷ 6?",["18","20","24","30"],"24"],["Quanto é 2⁴ + 3²?",["21","23","25","27"],"25"]],
+16:[
+["Resolva: 6(x + 2) + 5(2 - x) = 19. Qual é x?",["-1","2","3","5"],"3"],["Resolva: 4(x - 2) + 3x = 13. Qual é x?",["2","3","4","5"],"3"],["Resolva: 5(2x + 1) - 3x = 17. Qual é x?",["1","2","3","4"],"2"],["Resolva: 7x - 2(x + 3) = 9. Qual é x?",["2","3","4","5"],"3"],["Resolva: 3(x + 4) + 2(x - 1) = 23. Qual é x?",["1","2","3","4"],"2"],["Resolva: 8(x - 1) - 3x = 12. Qual é x?",["2","3","4","5"],"4"],["Resolva: 2(3x + 5) - 4 = 20. Qual é x?",["2","3","4","5"],"3"],["Resolva: 9x - 4(x + 2) = 17. Qual é x?",["2","3","4","5"],"5"]]
+};
+const geoByAge={
+13:[["Qual é o maior continente?",["África","Ásia","Europa","Oceania"],"Ásia"],["Em qual continente fica o Brasil?",["África","América do Sul","Europa","Ásia"],"América do Sul"],["Qual é o maior oceano?",["Atlântico","Índico","Pacífico","Ártico"],"Pacífico"],["Qual é a capital do Brasil?",["Brasília","São Paulo","Salvador","Recife"],"Brasília"],["Qual linha divide Norte e Sul?",["Equador","Greenwich","Câncer","Capricórnio"],"Equador"],["Em qual continente fica o Egito?",["África","Ásia","Europa","Oceania"],"África"]],
+14:[["Qual é o maior país em território?",["Brasil","China","Rússia","Canadá"],"Rússia"],["Qual oceano banha o leste do Brasil?",["Pacífico","Atlântico","Índico","Ártico"],"Atlântico"],["O Saara fica principalmente em qual continente?",["África","Ásia","Europa","Oceania"],"África"],["O clima equatorial é comum em qual região brasileira?",["Amazônia","Sul","Pampa","Sertão"],"Amazônia"],["O Trópico de Capricórnio passa pelo Brasil?",["Sim","Não","Somente no Norte","Somente no Nordeste"],"Sim"],["As estepes possuem principalmente:",["Vegetação rasteira","Floresta densa","Gelo","Mangue"],"Vegetação rasteira"]],
+15:[["Qual corrente marítima influencia o clima da costa oeste da América do Sul?",["Humboldt","Golfo","Benguela","Kuroshio"],"Humboldt"],["Qual bioma brasileiro é marcado por árvores adaptadas à seca e estação chuvosa?",["Cerrado","Pampa","Polo","Taiga"],"Cerrado"],["Qual é a maior bacia hidrográfica do mundo em volume de água?",["Amazônica","Nilo","Mississipi","Danúbio"],"Amazônica"],["O que é latitude?",["Distância ao Equador","Distância a Greenwich","Altura do relevo","Profundidade"],"Distância ao Equador"],["Qual continente possui a maior população?",["África","Ásia","Europa","Oceania"],"Ásia"],["Qual tipo climático domina grande parte do norte da África?",["Desértico","Polar","Equatorial","Mediterrâneo"],"Desértico"]],
+16:[["Qual processo está ligado à formação das grandes cadeias montanhosas?",["Movimento de placas tectônicas","Maré","Evaporação","Fotossíntese"],"Movimento de placas tectônicas"],["Qual conceito indica a diferença de altitude entre dois pontos?",["Desnível","Latitude","Longitude","Densidade"],"Desnível"],["Qual fenômeno está associado ao aquecimento anormal das águas do Pacífico?",["El Niño","Monção","Tsunami","Geada"],"El Niño"],["Qual projeção cartográfica preserva principalmente os ângulos locais?",["Mercator","Azimutal equidistante","Peters","Cônica simples"],"Mercator"],["Qual fator explica grande parte da diversidade climática da Terra?",["Latitude","Idioma","População","Fronteiras"],"Latitude"],["Qual formação vegetal é típica de áreas de clima mediterrâneo?",["Vegetação adaptada a verão seco","Floresta equatorial","Tundra","Taiga"],"Vegetação adaptada a verão seco"]]
+};
+
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function startQuestionGame(type){
+ const src=type==="math"?mathByAge[age]:geoByAge[age];
+ window.questionGame={type,questions:shuffle(src).slice(0,Math.min(7,src.length)),index:0,correct:0,wrong:0,attempts:0,locked:false,startTime:performance.now(),elapsed:0};
+ renderQuestion();
+}
+function renderQuestion(){
+ const g=window.questionGame;
+ if(g.index>=g.questions.length){finishQuestionGame();return}
+ const q=g.questions[g.index];
+ const buttons=shuffle(q[1]);
+ openModal(`<button class="closeButton" id="questionCloseButton" type="button">✕</button><div class="questionBox"><div class="questionNumber">Pergunta ${g.index+1} de ${g.questions.length} • ${age} anos</div><h2>${g.type==="math"?"➗ Matemática":"🌎 Geografia"}</h2><div class="questionText">${q[0]}</div><div class="attempts">Tentativas nesta pergunta: ${g.attempts}/3</div><br><div class="answerGrid">${buttons.map((a,i)=>`<button class="answerButton" type="button" data-answer-index="${i}">${a}</button>`).join("")}</div><div id="questionFeedback" class="feedback"></div></div>`);
+ document.getElementById("questionCloseButton").addEventListener("click",closeModal);
+ document.querySelectorAll(".answerButton").forEach((button,i)=>{button.addEventListener("click",()=>answerQuestion(buttons[i]))});
+}
+function answerQuestion(answer){
+ const g=window.questionGame;
+ if(!g || g.index>=g.questions.length || g.locked)return;
+ const q=g.questions[g.index];
+ if(g.attempts>=3)return;
+ const feedback=document.getElementById("questionFeedback");
+ if(!feedback)return;
+ g.attempts++;
+ if(answer===q[2]){
+  g.correct++;
+  g.locked=true;
+  feedback.className="feedback correct";
+  feedback.textContent="✅ Ó, acertou!";
+  document.querySelectorAll(".answerButton").forEach(b=>b.disabled=true);
+  setTimeout(()=>{g.index++;g.attempts=0;g.locked=false;renderQuestion()},650);
+ } else {
+  g.wrong++;
+  feedback.className="feedback wrong";
+  feedback.textContent=g.attempts>=3?`❌ Ah, errou! A resposta era ${q[2]}.`:"❌ Ah, errou! Tente novamente.";
+  if(g.attempts>=3){
+   g.locked=true;
+   document.querySelectorAll(".answerButton").forEach(b=>b.disabled=true);
+   setTimeout(()=>{g.index++;g.attempts=0;g.locked=false;renderQuestion()},1000);
+  } else {
+   const attempts=document.querySelector(".attempts");
+   if(attempts)attempts.textContent=`Tentativas nesta pergunta: ${g.attempts}/3`;
+  }
+ }
+}
+function finishQuestionGame(){
+ const g=window.questionGame;g.elapsed=(performance.now()-g.startTime)/1000;closeModal();completeTask(g.type);
+ if(g.type==="math"&&age===16){if(!mathRecord||g.elapsed<mathRecord){mathRecord=g.elapsed;localStorage.setItem("desconectaMathRecord",mathRecord.toFixed(2));}}
+ setTimeout(()=>showSimpleModal(g.type==="math"?"📚 Matemática concluída!":"🌎 Geografia concluída!",`<strong>Resultado final</strong><br><br>✅ Acertos: ${g.correct}<br>❌ Erros: ${g.wrong}<br>📝 Perguntas: ${g.questions.length}<br>⏱️ Tempo: ${g.elapsed.toFixed(2)}s${g.type==="math"&&age===16?`<br>🏆 Recorde de 16 anos: ${mathRecord.toFixed(2)}s`:""}<br><br>${g.correct===g.questions.length?"🎉 Você acertou tudo!":"💪 Você chegou até o final!"}`),250)
+}
+
+/* CELULAR */
+function openPhone(){if(!gameActive)return;phoneOpen=true;openModal(`<button class="closeButton" onclick="closePhone()">✕</button><h2>📱 Seu celular</h2><div style="width:min(330px,90vw);margin:auto;border:8px solid #242a33;border-radius:30px;padding:18px;background:#101723"><p style="text-align:center">Tempo de tela: <strong id="phoneTimer">${Math.floor(screenTime)}s</strong></p><div class="answerGrid"><button class="phoneApp" onclick="phoneUse('📸')">📸<span>Fotos</span></button><button class="phoneApp" onclick="phoneUse('💬')">💬<span>Mensagens</span></button><button class="phoneApp" onclick="phoneUse('🎵')">🎵<span>Música</span></button><button class="phoneApp" onclick="phoneUse('🎮')">🎮<span>Jogos</span></button></div><p id="phoneMessage" style="text-align:center;color:#9fb2c5">Você está usando o celular.</p></div>`);phoneInterval=setInterval(()=>{if(!phoneOpen)return;screenTime++;focus=Math.max(0,focus-.8);updateHUD();let t=document.getElementById("phoneTimer");if(t)t.textContent=Math.floor(screenTime)+"s"},1000)}
+function phoneUse(i){if(document.getElementById("phoneMessage"))phoneMessage.textContent=i+" Você abriu um aplicativo."}
+function closePhone(){phoneOpen=false;if(phoneInterval){clearInterval(phoneInterval);phoneInterval=null}closeModal()}
+
+/* MOCHILA E ESCOLA */
+function updateWorldItems(){document.getElementById("task-bag").classList.toggle("hidden",!unlocked.backpack)}
+function interactBackpack(){
+ if(!unlocked.backpack)return;
+ if(!tasksList.every(t=>tasks[t])){showSimpleModal("🎒 Ainda não!","Você ainda não pode ir. Tem que terminar todas as tarefas de casa primeiro.");return}
+ startSchoolCutscene();
+}
+function startSchoolCutscene(){
+ if(!activeSlot)return;
+ saveCurrentGame(false);
+ if(window.marcarNavegacaoInterna)marcarNavegacaoInterna();location.href="escola.html";
+}
+function startEnding(){
+ gameActive=false;let type;
+ if(life>=100&&focus>=100&&screenTime===0)type="perfect";else if(focus>=90&&screenTime<=30)type="excellent";else if(focus>=70&&screenTime<=90)type="good";else if(focus>=40)type="regular";else type="difficult";
+ endingData=type;saveCurrentGame(false);const rewards={perfect:2000,excellent:1500,good:1000,regular:600,difficult:250};coins+=rewards[type];saveCoins();cutsceneStep=0;
+ cutsceneScenes=[
+ {title:"🏠 A porta se abre...",message:"Depois de terminar todas as tarefas, você escuta a porta da frente. Sua mãe chegou."},
+ {title:"👩 Sua mãe chegou!",message:{perfect:"Ela olha para a casa, depois olha para você e abre um grande sorriso. Tudo está organizado!",excellent:"Ela percebe seu esforço e fica muito satisfeita.",good:"Ela percebe que você realmente tentou e sorri.",regular:"Ela olha ao redor e percebe que ainda existem coisas para melhorar.",difficult:"Ela percebe que manter a concentração foi difícil hoje."}[type]},
+ {title:"💬 Sua mãe fala...",message:{perfect:"Parabéns! Você fez tudo direitinho. Estou muito orgulhosa!",excellent:"Muito bem! Você se esforçou bastante hoje.",good:"Você foi bem. Continue tentando melhorar!",regular:"Você terminou, mas pode cuidar melhor da sua concentração.",difficult:"Hoje foi difícil, mas amanhã você pode tentar novamente."}[type]},
+ {title:{perfect:"🏆 FINAL PERFEITO!",excellent:"🌟 FINAL EXCELENTE!",good:"😊 FINAL BOM!",regular:"🙂 FINAL REGULAR!",difficult:"🌧️ FINAL DIFÍCIL!"}[type],message:`Você recebeu <strong>${rewards[type]} moedas</strong>! 🪙<br><br>Vida: ${Math.round(life)}%<br>Concentração: ${Math.round(focus)}%<br>Tempo de tela: ${Math.floor(screenTime)} segundos.`},
+ ...(unlocked.backpack?[{title:"🎒 Sua mãe olha para a mochila",message:"Muito bem! Agora vamos para a escola, já está na hora."}]:[])
+ ];document.getElementById("cutsceneBackground").style.background="linear-gradient(#304b61 0 60%,#8c6248 60%)";document.getElementById("schoolDesk").classList.add("hidden");document.getElementById("cutsceneActor").querySelector(".actorBody").style.background="#9a5bc8";document.getElementById("cutscene").classList.remove("hidden");nextCutscene()
+}
+function nextCutscene(){if(cutsceneStep>=cutsceneScenes.length){finishCutscene();return}let s=cutsceneScenes[cutsceneStep];cutsceneTitle.innerHTML=s.title;cutsceneMessage.innerHTML=s.message;cutsceneStep++}
+function finishCutscene(){
+ document.getElementById("cutscene").classList.add("hidden");
+ // Ao terminar a cena da mãe, quem já comprou a mochila segue para a escola.
+ // Assim a transição não depende de voltar ao mapa e clicar na mochila novamente.
+ if(endingData && unlocked.backpack){
+  startSchoolCutscene();
+  return;
+ }
+ saveCurrentGame(true);
+ if(window.marcarNavegacaoInterna)marcarNavegacaoInterna();location.href="index.html";
+}
+
+/* LOJA */
+function openShop(){updateShop();showScreen("shopScreen")}
+function closeShop(){if(new URLSearchParams(location.search).get("shop")==="1"){if(window.marcarNavegacaoInterna)marcarNavegacaoInterna();location.href="index.html"}else showScreen("menuScreen")}
+function updateShop(){shopCoins.textContent=coins;["backpack","coat","shoes","cap"].forEach(i=>{let e=document.getElementById("owned-"+i);if(e)e.innerHTML=unlocked[i]?'<span class="owned">✅ Comprado</span>':""})}
+function buyItem(item){const prices={backpack:500,coat:700,shoes:300,cap:300};if(unlocked[item]){showSimpleModal("✅ Você já possui esse item","Ele continua disponível nesta sessão.");return}if(coins<prices[item]){showSimpleModal("🪙 Moedas insuficientes",`Você precisa de ${prices[item]} moedas.`);return}coins-=prices[item];unlocked[item]=true;localStorage.setItem("desconectaUnlocked",JSON.stringify(unlocked));saveCoins();updateShop();showSimpleModal("🎉 Comprado!","O item ficou salvo nesta sessão do Desconecta!.")}
+function saveCoins(){localStorage.setItem("desconectaCoins",coins)}
+
+/* MOVIMENTO */
+document.addEventListener("keydown",e=>{keys[e.key.toLowerCase()]=true;if(e.key.toLowerCase()==="e")interactNearby()});document.addEventListener("keyup",e=>keys[e.key.toLowerCase()]=false)
+function updatePlayer(delta){if(!gameActive||phoneOpen||!modalLayer.classList.contains("hidden"))return;let dx=0,dy=0;if(keys.w||keys.arrowup)dy--;if(keys.s||keys.arrowdown)dy++;if(keys.a||keys.arrowleft)dx--;if(keys.d||keys.arrowright)dx++;dx+=joystickX;dy+=joystickY;let m=Math.hypot(dx,dy);if(m>1){dx/=m;dy/=m}let speed=220;if(focus<=30)speed=145;if(focus<=10)speed=85;playerX+=dx*speed*delta;playerY+=dy*speed*delta;playerX=Math.max(30,Math.min(2370,playerX));playerY=Math.max(30,Math.min(1770,playerY));updateCharacterOnMap();centerCamera()}
+function updateCharacterOnMap(){applyAppearance(player);player.style.left=playerX+"px";player.style.top=playerY+"px"}
+function centerCamera(){let w=gameScreen.clientWidth,h=gameScreen.clientHeight;let l=w/2-playerX,t=h/2-playerY;l=Math.min(0,Math.max(w-2400,l));t=Math.min(0,Math.max(h-1800,t));world.style.left=l+"px";world.style.top=t+"px"}
+let joystickActive=false;const joystick=document.getElementById("joystick"),stick=document.getElementById("stick");
+function updateJoystick(x,y){let r=joystick.getBoundingClientRect(),dx=x-(r.left+r.width/2),dy=y-(r.top+r.height/2),max=35,d=Math.hypot(dx,dy);if(d>max){dx=dx/d*max;dy=dy/d*max}stick.style.transform=`translate(${dx}px,${dy}px)`;joystickX=dx/max;joystickY=dy/max}
+joystick.addEventListener("pointerdown",e=>{joystickActive=true;joystick.setPointerCapture(e.pointerId);updateJoystick(e.clientX,e.clientY)});joystick.addEventListener("pointermove",e=>{if(joystickActive)updateJoystick(e.clientX,e.clientY)});joystick.addEventListener("pointerup",resetJoystick);joystick.addEventListener("pointercancel",resetJoystick);function resetJoystick(){joystickActive=false;stick.style.transform="translate(0,0)";joystickX=0;joystickY=0}
+let lastTime=performance.now();function gameLoop(t){let d=Math.min(.05,(t-lastTime)/1000);lastTime=t;updatePlayer(d);requestAnimationFrame(gameLoop)}requestAnimationFrame(gameLoop)
+
+/* inicialização */
+updateCharacterPreview();updateShop();updateTaskList();updateHUD();updateWorldItems();
+setInterval(()=>{if(gameActive&&activeSlot)saveCurrentGame(false)},10000);
+const params=new URLSearchParams(location.search);
+if(params.get("slot")){activeSlot=Number(params.get("slot"));localStorage.setItem("desconectaActiveSlot",activeSlot)}
+if(params.get("continue")==="1" && activeSlot){if(!loadCurrentGame()){if(window.marcarNavegacaoInterna)marcarNavegacaoInterna();location.href="index.html";}}
+else if(params.get("new")==="1" && activeSlot){showScreen("characterScreen");updateCharacterPreview();}
+else if(params.get("shop")==="1"){showScreen("shopScreen");updateShop();}
+
+</script>
+</body>
+</html>
