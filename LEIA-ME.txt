@@ -1,26 +1,21 @@
-DESconecta! V10.1 - Atualização visual dos personagens
+Desconecta! V10.2 - Aviso inicial
 
-COMO ABRIR
-1. Extraia todos os arquivos do ZIP para a mesma pasta.
-2. Abra index.html para testar no computador.
-3. Para publicar no GitHub Pages, envie todos os arquivos juntos, substituindo os anteriores.
+Arquivos:
+- index.html: menu inicial, slots, loja e aviso de desenvolvimento na primeira visita.
+- jogo.html: jogo principal, personagens, roupas, loja e escola integrada.
+- escola.html: área escolar.
+- sessao.js: controle de sessão e aviso de reinício após sair do site.
+- audio.js: efeitos sonoros e música.
 
-ARQUIVOS
-- index.html: menu inicial e seleção dos três slots de save.
-- jogo.html: criação de personagem, jogo, loja e aparência dos personagens.
-- escola.html: sequência da escola.
-- sessao.js: controle da sessão e reinício ao sair e voltar.
-- audio.js: música e efeitos sonoros do navegador.
+Novidade V10.2:
+- Ao abrir o site pela primeira vez neste navegador, aparece um aviso explicando que o jogo ainda está em desenvolvimento e pode ter irregularidades visuais ou pequenos erros.
+- O aviso inicial é mostrado uma vez, após a pessoa clicar em “Entendi, vamos jogar!”.
+- Esse aviso é apenas informativo: não apaga saves, moedas ou compras.
+- O aviso de sessão reiniciada continua separado e mantém o comportamento já existente.
 
-MELHORIAS V10.1
-- Cabelo feminino mais longo nas laterais do rosto.
-- Boné redesenhado com aba, brilho e detalhe frontal.
-- Camisa masculina: azul ou verde.
-- Camisa feminina: rosa ou vermelha.
-- Casaco comprado aparece no personagem.
-- Pés e tênis aparecem sempre; o tênis padrão é preto.
-- Tênis comprado ganha acabamento claro e símbolo decorativo original.
-- Mochila e demais itens continuam ligados às compras da sessão.
+Como usar:
+1. Extraia todos os arquivos para a mesma pasta.
+2. Abra index.html ou publique os arquivos juntos no GitHub Pages.
+3. Para testar novamente o aviso inicial, apague a chave "introDisclaimerAccepted" do armazenamento local do site no navegador.
 
-NOTA SOBRE ÁUDIO
-O navegador pode exigir uma primeira interação do usuário antes de tocar áudio.
+Observação: o progresso de sessão segue as regras já existentes do jogo.
