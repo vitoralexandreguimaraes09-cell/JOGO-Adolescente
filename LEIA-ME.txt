@@ -1,21 +1,49 @@
-Desconecta! V10.2 - Aviso inicial
+Desconecta! V10.4 — Menu de pausa e aviso de desenvolvimento
 
 Arquivos:
-- index.html: menu inicial, slots, loja e aviso de desenvolvimento na primeira visita.
-- jogo.html: jogo principal, personagens, roupas, loja e escola integrada.
+- index.html: menu principal, slots, loja e navegação.
+- jogo.html: criação do personagem, jogo, loja, efeitos visuais e menu de pausa.
 - escola.html: área escolar.
-- sessao.js: controle de sessão e aviso de reinício após sair do site.
+- sessao.js: controle de sessão, aviso de sessão reiniciada e aviso de desenvolvimento.
 - audio.js: efeitos sonoros e música.
 
-Novidade V10.2:
-- Ao abrir o site pela primeira vez neste navegador, aparece um aviso explicando que o jogo ainda está em desenvolvimento e pode ter irregularidades visuais ou pequenos erros.
-- O aviso inicial é mostrado uma vez, após a pessoa clicar em “Entendi, vamos jogar!”.
-- Esse aviso é apenas informativo: não apaga saves, moedas ou compras.
-- O aviso de sessão reiniciada continua separado e mantém o comportamento já existente.
+Novidades V10.4:
+- Adicionado botão “Pausar” durante a partida.
+- O menu de pausa oferece “Continuar jogando”, “Começar esta jornada de novo” e “Voltar ao menu inicial”.
+- Ao pausar, o personagem para de se mover e a perda de vida por concentração zerada também fica pausada.
+- O aviso de desenvolvimento aparece ao abrir o menu principal pela primeira vez em uma nova navegação, após recarregar a página e depois de confirmar o aviso de sessão reiniciada.
+- Ao voltar de uma sessão reiniciada, o aviso “Um aviso antes de começar” aparece depois de “Sessão reiniciada”, em vez de ser pulado.
+- O aviso de desenvolvimento é informativo e não apaga saves nem progresso.
+- Mantidos Game Over, alerta vermelho de concentração baixa, personagens, loja, sons e correção do botão Voltar.
 
 Como usar:
 1. Extraia todos os arquivos para a mesma pasta.
-2. Abra index.html ou publique os arquivos juntos no GitHub Pages.
-3. Para testar novamente o aviso inicial, apague a chave "introDisclaimerAccepted" do armazenamento local do site no navegador.
+2. Abra index.html ou publique todos os arquivos juntos no GitHub Pages.
+3. Teste o botão de pausa, as três opções do menu e os avisos de abertura/recarregamento antes de publicar.
 
-Observação: o progresso de sessão segue as regras já existentes do jogo.
+Validação: JavaScript inline e arquivos JavaScript verificados quanto à sintaxe; ZIP verificado quanto à integridade. Recomenda-se também testar as mecânicas no navegador.
+
+
+ATUALIZAÇÃO V10.4.1
+- O celular abre automaticamente depois de 7 segundos sem movimento durante uma partida. Depois de fechar o celular, ele não abre repetidamente até o jogador se movimentar novamente.
+- O botão de música fica abaixo da barra de vida durante o jogo, sem cobrir o menu de pausa. Nas telas de menu, continua no canto superior.
+
+
+ATUALIZAÇÃO V10.4.2
+- Os botões do celular receberam um visual de cartões com gradientes, bordas luminosas e animação ao passar o mouse/tocar.
+- Ao tocar em Jogos, a concentração diminui 20 pontos percentuais e uma mensagem explica a consequência.
+- Fotos, Mensagens e Música mostram mensagens próprias sem aplicar a penalidade de concentração.
+- A queda de concentração usa o sistema de HUD e efeitos visuais já existentes.
+
+ATUALIZAÇÃO V10.4.3 — CELULAR COM MINIAPLICATIVOS
+- Fotos: álbum ilustrado que registra o início da aventura e tarefas/marcos concluídos. Não acessa a câmera do dispositivo.
+- Mensagens: conversas curtas com respostas que variam conforme o progresso das tarefas.
+- Música: três climas instrumentais originais gerados pelo próprio jogo: Calma, Energia e Foco. A escolha fica salva neste navegador.
+- Jogos: minijogo Toque Relâmpago, com cinco toques na estrela. Iniciar o minijogo reduz a concentração em 20 pontos percentuais; o tempo de tela continua contando enquanto o celular está aberto.
+- Botão para voltar aos aplicativos em cada tela interna do celular.
+
+ATUALIZAÇÃO V10.4.4 — TRILHAS MUSICAIS DINÂMICAS
+- Selecionar Calma, Energia ou Foco no aplicativo Música troca imediatamente a música ambiente do jogo.
+- Cada clima tem melodia, timbre e velocidade próprios: Calma é suave, Energia é mais rápida e marcada, e Foco é mais discreta e constante.
+- A escolha fica salva no navegador e continua selecionada ao voltar ao jogo ou recarregar a página.
+- O botão geral de música continua podendo ligar/desligar a trilha e os efeitos sonoros.

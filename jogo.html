@@ -67,22 +67,30 @@ button,input{font:inherit}button{cursor:pointer}
 .tree{position:absolute;width:100px;height:140px}.tree:before{content:"";position:absolute;bottom:0;left:42px;width:20px;height:60px;background:#68452d;border-radius:8px}.tree:after{content:"";position:absolute;top:0;left:0;width:100px;height:100px;border-radius:50%;background:#2f7d42;box-shadow:35px -12px 0 #3b8f4d,60px 20px 0 #347d43,10px 30px 0 #429951}
 .taskObject{position:absolute;z-index:10;width:100px;height:80px;border-radius:15px;background:#192735eb;border:2px solid #fff3;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:30px;box-shadow:0 10px 20px #0002}.taskObject span{font-size:12px;font-weight:bold}.taskObject.completed{opacity:.32;filter:grayscale(1)}
 #task-bag{width:105px;height:85px;background:#293d52}
-#hud{position:absolute;z-index:100;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;gap:7px;pointer-events:none}.hudBox{pointer-events:auto;background:#08111cdd;border:1px solid #fff2;border-radius:13px;padding:7px 10px;font-size:12px}.bar{width:125px;height:9px;background:#293646;border-radius:10px;overflow:hidden;margin-top:3px}.barFill{height:100%;width:100%;background:#48d67a;transition:.3s}.focusFill{background:#55cfff}
+#hud{position:absolute;z-index:100;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;gap:7px;pointer-events:none}.hudBox{pointer-events:auto;background:#08111cdd;border:1px solid #fff2;border-radius:13px;padding:7px 10px;font-size:12px}.pauseButton{pointer-events:auto;align-self:flex-start;border:1px solid #8fe9ff55;border-radius:12px;padding:9px 12px;background:linear-gradient(135deg,#203f59,#182a40);color:#effbff;font-size:12px;font-weight:900;box-shadow:0 5px 16px #0003}.pauseButton:active{transform:scale(.97)}.bar{width:125px;height:9px;background:#293646;border-radius:10px;overflow:hidden;margin-top:3px}.barFill{height:100%;width:100%;background:#48d67a;transition:.3s}.focusFill{background:#55cfff}
 #taskPanel{position:absolute;z-index:100;top:88px;right:10px;width:235px;background:#08111ce8;border-radius:15px;padding:10px}.taskLine{padding:4px;font-size:12px;color:#c8d2de}.taskLine.done{color:#62e68a;text-decoration:line-through}
 #interactHint{position:absolute;z-index:120;bottom:125px;left:50%;transform:translateX(-50%);background:#08111cf2;border-radius:12px;padding:9px 14px;font-weight:bold}
 #joystick{position:absolute;z-index:150;left:20px;bottom:23px;width:125px;height:125px;border-radius:50%;background:#fff2;border:2px solid #fff3;touch-action:none}#stick{position:absolute;width:55px;height:55px;border-radius:50%;left:35px;top:35px;background:#ffffff66}
 #actionButton{position:absolute;z-index:150;right:23px;bottom:28px;width:74px;height:74px;border:0;border-radius:50%;background:#55cfff;color:#07131e;font-weight:900}
 .phoneButton{position:absolute;z-index:140;right:18px;bottom:120px;width:60px;height:60px;border:0;border-radius:50%;background:#252d3b;color:#fff;font-size:24px}
-#focusEffect{position:absolute;inset:0;z-index:90;pointer-events:none;opacity:0;background:radial-gradient(circle,transparent 20%,#474bff18 68%,#ff003c45);transition:.4s}.lowFocus{animation:shake .5s infinite}.criticalFocus{animation:shake .24s infinite}@keyframes shake{0%,100%{transform:translate(0)}25%{transform:translate(2px,-1px)}50%{transform:translate(-2px,2px)}75%{transform:translate(1px,1px)}}
+#focusEffect{position:absolute;inset:0;z-index:90;pointer-events:none;opacity:0;background:radial-gradient(circle,transparent 20%,#ff25352b 62%,#ff001f88 100%);transition:opacity .25s}.lowFocus{animation:shake .5s infinite}.criticalFocus{animation:shake .24s infinite}@keyframes shake{0%,100%{transform:translate(0)}25%{transform:translate(2px,-1px)}50%{transform:translate(-2px,2px)}75%{transform:translate(1px,1px)}}
 .modalLayer{position:absolute;inset:0;z-index:300;background:#000b;display:flex;align-items:center;justify-content:center;padding:14px}.modal{width:min(94%,680px);max-height:92vh;overflow:auto;background:#111e2d;border:1px solid #fff2;border-radius:24px;padding:22px;box-shadow:0 30px 70px #0008}.modal h2{margin-top:0;color:#7be1ff}.closeButton{float:right;border:0;background:#2b3a4d;color:#fff;border-radius:10px;padding:7px 11px}
 .miniScene{min-height:300px;border-radius:18px;background:linear-gradient(135deg,#1a2c3e,#0d1724);padding:20px;position:relative;overflow:hidden}.miniInstruction{color:#b9c9d9}.progress{height:13px;border-radius:10px;background:#263647;overflow:hidden;margin:14px 0}.progressFill{width:0;height:100%;background:#58d99a;transition:.25s}.miniButton{border:0;border-radius:11px;padding:11px 14px;background:#263b52;color:#fff;font-weight:bold}
 .trashItem,.dirtSpot,.bathSpot,.roomItem{position:absolute;cursor:pointer;user-select:none}.trashItem{font-size:42px;transition:.2s}.trashItem.removed{transform:scale(0);opacity:0}.dirtSpot{width:38px;height:28px;border-radius:50%;background:#6b513d;box-shadow:0 4px 6px #0005}.dirtSpot.cleaned{transform:scale(0);opacity:0}.bathSpot{width:55px;height:40px;border-radius:15px;background:#8b6d59}.bathSpot.cleaned{background:#9fe7fa;transform:scale(.85)}
 .bedMini{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:280px;height:150px;border-radius:15px;background:#6c4d39}.mattress{position:absolute;inset:15px;border-radius:12px;background:#d8e9f0}.blanket{position:absolute;left:50%;bottom:15px;width:110px;height:100px;transform:translateX(-50%);border-radius:10px;background:#70a7d5;cursor:pointer}.pillow{position:absolute;top:30px;width:65px;height:42px;border-radius:12px;background:#fff;cursor:pointer}.pillow.one{left:45px}.pillow.two{right:45px}.fixed{opacity:.45;transform:scale(.9)}
 .roomTarget{position:absolute;border:2px dashed #65dfff;border-radius:12px;padding:10px;color:#72dfff;font-size:12px;cursor:pointer}.roomItem{font-size:43px;padding:7px;border-radius:12px}
+.phoneApp{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:92px;padding:13px 8px;border:1px solid #ffffff20;border-radius:17px;background:linear-gradient(145deg,#243b55,#152438 72%);color:#f5fbff;font-size:27px;font-weight:900;box-shadow:0 7px 16px #0003,inset 0 1px 0 #ffffff18;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;}
+.phoneApp span{font-size:12px;font-weight:800;letter-spacing:.03em;color:#bfeeff}
+.phoneApp:before{content:"";position:absolute;inset:0;border-radius:17px;background:linear-gradient(135deg,#58dfff14,transparent 55%);pointer-events:none}
+.phoneApp:hover{transform:translateY(-2px);border-color:#75e5ff88;box-shadow:0 10px 22px #0005,0 0 14px #55cfff16}
+.phoneApp:active{transform:scale(.96);background:linear-gradient(145deg,#315875,#192d45)}
+.phoneApp:last-child{border-color:#ffb35c55;background:linear-gradient(145deg,#563c65,#28213f 72%)}
+.phoneApp:last-child span{color:#ffd8a8}
+@media(max-width:700px){.phoneApp{min-height:78px;font-size:24px;padding:10px 6px}.phoneApp span{font-size:11px}}
 .questionBox{text-align:center}.questionNumber{color:#83dfff;font-size:13px}.questionText{font-size:23px;font-weight:bold;margin:18px 0}.answerGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.answerButton{padding:14px;border:2px solid #32465c;border-radius:13px;background:#1b2d40;color:#fff;font-size:16px;font-weight:bold}.answerButton:active{transform:scale(.97)}.feedback{min-height:28px;margin-top:12px;font-weight:bold}.feedback.correct{color:#61ed8c}.feedback.wrong{color:#ff8b8b}.attempts{color:#b8c8d8;font-size:13px}
 .recordBox{padding:10px;border-radius:12px;background:#172b3e;margin:10px 0;color:#b9d0df}.recordValue{font-size:24px;color:#71e4ff;font-weight:bold}
 #cutscene{position:absolute;inset:0;z-index:1000;background:#080e17;display:flex;align-items:center;justify-content:center}.cutsceneRoom{position:absolute;inset:0;background:linear-gradient(#304b61 0 60%,#8c6248 60%)}.cutsceneActor{position:absolute;bottom:23%;left:50%;transform:translateX(-50%);width:115px;height:200px;animation:actorBob 1.8s ease-in-out infinite}@keyframes actorBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}.actorHead{position:absolute;width:75px;height:75px;left:20px;top:0;border-radius:50%;background:#eab38b}.actorHair{position:absolute;width:86px;height:92px;left:14px;top:-12px;border-radius:48px 48px 25px 25px;background:#5a3425}.actorBody{position:absolute;left:10px;top:68px;width:95px;height:130px;border-radius:25px 25px 10px 10px;background:#9a5bc8}.actorFace{position:absolute;z-index:5;top:24px;left:39px;font-size:16px;color:#3b241c}.actorFace:after{content:"•  •"}.schoolDesk{position:absolute;bottom:18%;left:50%;transform:translateX(-50%);width:300px;height:45px;border-radius:10px;background:#8c5c3d;box-shadow:0 18px 0 #67432e}.cutsceneText{position:absolute;bottom:4%;left:50%;transform:translateX(-50%);width:min(92%,760px);padding:18px 20px;border-radius:20px;background:#070e17f2;border:1px solid #fff2}.cutsceneText h2{margin:0 0 8px;color:#7fe4ff}.cutsceneText p{margin:0;line-height:1.5}.cutsceneButton{margin-top:12px;padding:11px 20px;border:0;border-radius:12px;background:#5bd5ff;color:#08131d;font-weight:bold}
-@media(max-width:700px){.characterGrid{grid-template-columns:1fr}.preview{min-height:220px}.shopGrid{grid-template-columns:1fr}.ageGrid{grid-template-columns:repeat(2,1fr)}#taskPanel{top:auto;bottom:100px;width:180px;font-size:11px}.bar{width:82px}.hudBox{font-size:10px;padding:6px}.answerGrid{grid-template-columns:1fr}.questionText{font-size:20px}}
+@media(max-width:700px){#hud{flex-wrap:wrap;justify-content:flex-start;right:8px;left:8px}.pauseButton{margin-left:auto}.characterGrid{grid-template-columns:1fr}.preview{min-height:220px}.shopGrid{grid-template-columns:1fr}.ageGrid{grid-template-columns:repeat(2,1fr)}#taskPanel{top:auto;bottom:100px;width:180px;font-size:11px}.bar{width:82px}.hudBox{font-size:10px;padding:6px}.answerGrid{grid-template-columns:1fr}.questionText{font-size:20px}}
 </style>
 </head>
 <body>
@@ -130,7 +138,7 @@ button,input{font:inherit}button{cursor:pointer}
 <button class="choice" onclick="selectHair('black',this)">🖤 Preto</button>
 </div>
 <button class="bigButton" onclick="startNewGame()">▶ Começar</button>
-<button class="bigButton secondaryButton" onclick="showScreen('menuScreen')">Voltar</button>
+<button class="bigButton secondaryButton" onclick="if(window.marcarNavegacaoInterna)marcarNavegacaoInterna();location.href='index.html'">Voltar</button>
 </div>
 </div>
 </div>
@@ -168,7 +176,7 @@ button,input{font:inherit}button{cursor:pointer}
 <div id="hud">
 <div class="hudBox">❤️ Vida<div class="bar"><div id="lifeBar" class="barFill"></div></div><span id="lifeText">100%</span></div>
 <div class="hudBox">🧠 Concentração<div class="bar"><div id="focusBar" class="barFill focusFill"></div></div><span id="focusText">100%</span></div>
-<div class="hudBox">📱 Tela: <span id="screenTime">0</span>s</div><div class="hudBox">🪙 <span id="coins">0</span></div>
+<div class="hudBox">📱 Tela: <span id="screenTime">0</span>s</div><div class="hudBox">🪙 <span id="coins">0</span></div><button id="pauseButton" class="pauseButton" onclick="openPauseMenu()">⏸ Pausar</button>
 </div>
 <div id="taskPanel"><strong>📋 Tarefas</strong>
 <div id="task-trash-line" class="taskLine">⬜ Tirar o lixo</div><div id="task-bed-line" class="taskLine">⬜ Arrumar a cama</div><div id="task-clean-line" class="taskLine">⬜ Limpar a casa</div><div id="task-bath-line" class="taskLine">⬜ Limpar o banheiro</div><div id="task-room-line" class="taskLine">⬜ Organizar o quarto</div><div id="task-math-line" class="taskLine">⬜ Matemática</div><div id="task-geo-line" class="taskLine">⬜ Geografia</div>
@@ -189,9 +197,10 @@ button,input{font:inherit}button{cursor:pointer}
 <script src="sessao.js"></script><script src="audio.js"></script><script>
 const tasksList=["trash","bed","clean","bath","room","math","geo"];
 const taskNames={trash:"Tirar o lixo",bed:"Arrumar a cama",clean:"Limpar a casa",bath:"Limpar o banheiro",room:"Organizar o quarto",math:"Matemática",geo:"Geografia"};
-let tasks={}; let gameActive=false; let life=100,focus=100,screenTime=0; let coins=Number(localStorage.getItem("desconectaCoins")||0);
+let tasks={}; let gameActive=false,gamePaused=false; let life=100,focus=100,screenTime=0; let coins=Number(localStorage.getItem("desconectaCoins")||0);
 let gender="male",age=13,clothes="blue",hairColor="brown"; let unlocked=JSON.parse(localStorage.getItem("desconectaUnlocked")||"{}");
 let playerX=550,playerY=620,joystickX=0,joystickY=0,keys={},phoneOpen=false,phoneInterval=null,lifeInterval=null,warningShown=false;
+let idlePhoneSeconds=0,idlePhoneTriggered=false;
 let cutsceneStep=0,endingData=null,schoolAfterEnding=false,cutsceneScenes=[]; let mathRecord=Number(localStorage.getItem("desconectaMathRecord")||0);
 const player=document.getElementById("player"),world=document.getElementById("world"),modalLayer=document.getElementById("modalLayer"),modalContent=document.getElementById("modalContent");
 const lifeBar=document.getElementById("lifeBar"),focusBar=document.getElementById("focusBar"),lifeText=document.getElementById("lifeText"),focusText=document.getElementById("focusText"),screenTimeText=document.getElementById("screenTime"),coinsText=document.getElementById("coins"),focusEffect=document.getElementById("focusEffect"),gameScreen=document.getElementById("gameScreen");
@@ -228,7 +237,7 @@ function applyAppearance(el){
 }
 
 function resetRunState(){
- life=100;focus=100;screenTime=0;warningShown=false;endingData=null;cutsceneStep=0;schoolAfterEnding=false;phoneOpen=false;playerX=550;playerY=620;keys={};joystickX=0;joystickY=0;
+ life=100;focus=100;screenTime=0;gamePaused=false;warningShown=false;endingData=null;cutsceneStep=0;schoolAfterEnding=false;phoneOpen=false;idlePhoneSeconds=0;idlePhoneTriggered=false;playerX=550;playerY=620;keys={};joystickX=0;joystickY=0;
  tasks={};tasksList.forEach(t=>tasks[t]=false);
  if(phoneInterval){clearInterval(phoneInterval);phoneInterval=null} if(lifeInterval){clearInterval(lifeInterval);lifeInterval=null}
  modalLayer.classList.add("hidden");document.getElementById("cutscene").classList.add("hidden");
@@ -241,8 +250,8 @@ function saveCurrentGame(completed=false){
 }
 function loadCurrentGame(){
  const raw=localStorage.getItem("desconectaSave"+activeSlot);if(!raw)return false;
- const d=JSON.parse(raw);if(d.status==="completed")return false;
- age=d.age||13;gender=d.gender||"male";clothes=d.clothes||"blue";hairColor=d.hairColor||"brown";unlocked=d.unlocked||{};coins=Number(d.coins||0);selectGender(gender);tasks=d.tasks||{};tasksList.forEach(t=>{if(typeof tasks[t]!=="boolean")tasks[t]=false});life=Number(d.life??100);focus=Number(d.focus??100);screenTime=Number(d.screenTime||0);playerX=Number(d.playerX||550);playerY=Number(d.playerY||620);endingData=d.endingData||null;mathRecord=Number(d.mathRecord||0);gameActive=true;phoneOpen=false;warningShown=false;showScreen("gameScreen");updateTaskList();updateHUD();updateWorldItems();updateCharacterOnMap();centerCamera();return true;
+ const d=JSON.parse(raw);if(d.status==="completed"||d.status==="gameover")return false;
+ age=d.age||13;gender=d.gender||"male";clothes=d.clothes||"blue";hairColor=d.hairColor||"brown";unlocked=d.unlocked||{};coins=Number(d.coins||0);selectGender(gender);tasks=d.tasks||{};tasksList.forEach(t=>{if(typeof tasks[t]!=="boolean")tasks[t]=false});life=Number(d.life??100);focus=Number(d.focus??100);screenTime=Number(d.screenTime||0);playerX=Number(d.playerX||550);playerY=Number(d.playerY||620);endingData=d.endingData||null;mathRecord=Number(d.mathRecord||0);gameActive=true;phoneOpen=false;idlePhoneSeconds=0;idlePhoneTriggered=false;warningShown=false;showScreen("gameScreen");updateTaskList();updateHUD();updateWorldItems();updateCharacterOnMap();centerCamera();return true;
 }
  
 function deleteSaveSlot(n){localStorage.removeItem("desconectaSave"+n);if(activeSlot===n){activeSlot=0;localStorage.removeItem("desconectaActiveSlot")}}
@@ -251,10 +260,13 @@ function startNewGame(){
  coins=Number(localStorage.getItem("desconectaCoins")||coins||0);unlocked=JSON.parse(localStorage.getItem("desconectaUnlocked")||JSON.stringify(unlocked||{}));
  resetRunState();gameActive=true;showScreen("gameScreen");updateWorldItems();updateCharacterOnMap();centerCamera();saveCurrentGame();
 }
-function updateHUD(){life=Math.max(0,Math.min(100,life));focus=Math.max(0,Math.min(100,focus));lifeBar.style.width=life+"%";focusBar.style.width=focus+"%";lifeText.textContent=Math.round(life)+"%";focusText.textContent=Math.round(focus)+"%";screenTimeText.textContent=Math.floor(screenTime);coinsText.textContent=coins;updateFocusEffects();if(life<=0&&gameActive){gameActive=false;showSimpleModal("💤 Você ficou sem energia","Sua vida chegou a 0%.")}
+function updateHUD(){life=Math.max(0,Math.min(100,life));focus=Math.max(0,Math.min(100,focus));lifeBar.style.width=life+"%";focusBar.style.width=focus+"%";lifeText.textContent=Math.round(life)+"%";focusText.textContent=Math.round(focus)+"%";screenTimeText.textContent=Math.floor(screenTime);coinsText.textContent=coins;updateFocusEffects();if(life<=0&&gameActive){gameActive=false;if(phoneInterval){clearInterval(phoneInterval);phoneInterval=null}if(lifeInterval){clearInterval(lifeInterval);lifeInterval=null}saveCurrentGame(false);try{const key="desconectaSave"+activeSlot;const saved=JSON.parse(localStorage.getItem(key)||"{}");saved.status="gameover";saved.gameOverAt=new Date().toISOString();localStorage.setItem(key,JSON.stringify(saved))}catch(e){}showDeathNotice()}
 }
-function updateFocusEffects(){if(focus<=30){focusEffect.style.opacity=Math.min(.72,(31-focus)/30*.72);gameScreen.classList.add("lowFocus")}else{focusEffect.style.opacity=0;gameScreen.classList.remove("lowFocus","criticalFocus")}if(focus<=10)gameScreen.classList.add("criticalFocus");if(focus<=0&&!warningShown){warningShown=true;showSimpleModal("⚠️ Concentração zerada!","Sua concentração chegou a 0%. Agora você está muito lento e sua vida começa a diminuir.");startLifeDrain()}}
-function startLifeDrain(){if(lifeInterval)return;lifeInterval=setInterval(()=>{if(gameActive&&focus<=0){life-=5;updateHUD()}},3000)}
+function updateFocusEffects(){if(focus<=20){focusEffect.style.opacity=focus<=10?Math.min(.92,.58+(10-focus)*.034):Math.min(.72,.28+(20-focus)*.022);focusEffect.style.background=focus<=10?"radial-gradient(circle,transparent 8%,#ff1b2d55 54%,#ff001fbb 100%)":"radial-gradient(circle,transparent 18%,#ff25354a 62%,#ff001f8c 100%)";gameScreen.classList.add("lowFocus")}else{focusEffect.style.opacity=0;gameScreen.classList.remove("lowFocus","criticalFocus")}if(focus<=10)gameScreen.classList.add("criticalFocus");else gameScreen.classList.remove("criticalFocus");if(focus<=0&&!warningShown){warningShown=true;showSimpleModal("⚠️ Concentração zerada!","Sua concentração chegou a 0%. Agora você está muito lento e sua vida começa a diminuir.");startLifeDrain()}}
+function showDeathNotice(){openModal(`<div style="text-align:center"><div style="font-size:46px">💤</div><h2 style="color:#ff9a9a">Você ficou sem energia</h2><p style="line-height:1.6">Sua vida chegou a 0%. Esta jornada terminou antes de você conseguir concluir os objetivos.</p><button class="bigButton" onclick="showGameOverScreen()">Ver resultado</button></div>`)}
+function showGameOverScreen(){const saved=(()=>{try{return JSON.parse(localStorage.getItem("desconectaSave"+activeSlot)||"{}")}catch{return {}}})();openModal(`<div style="text-align:center;padding:10px 2px"><div style="font-size:58px;filter:drop-shadow(0 0 18px #ff263d66)">☠️</div><div style="font-size:12px;font-weight:900;letter-spacing:.22em;color:#ff8e9b;margin:8px 0">FIM DE JOGO</div><h2 style="font-size:clamp(30px,7vw,46px);color:#ff6478;margin:0 0 12px">GAME OVER</h2><p style="line-height:1.7;color:#d7e1ec">Sua vida chegou a zero e você não conseguiu concluir a jornada desta vez.</p><div style="margin:18px 0;padding:15px;border-radius:15px;background:#ff263d12;border:1px solid #ff647833;text-align:left;line-height:1.9">❤️ Vida final: <strong>0%</strong><br>🧠 Concentração: <strong>${Math.round(focus)}%</strong><br>📋 Tarefas concluídas: <strong>${Object.values(tasks).filter(Boolean).length}/${tasksList.length}</strong><br>🪙 Moedas obtidas: <strong>${Number(saved.coins??coins).toLocaleString("pt-BR")}</strong></div><p style="color:#a9bacb;font-size:13px">O resultado ficará registrado no Save ${activeSlot}. No menu inicial, ele aparecerá como uma jornada encerrada.</p><button class="bigButton" onclick="returnToMenuAfterGameOver()">Voltar ao menu inicial</button></div>`)}
+function returnToMenuAfterGameOver(){if(window.marcarNavegacaoInterna)marcarNavegacaoInterna();location.href="index.html"}
+function startLifeDrain(){if(lifeInterval)return;lifeInterval=setInterval(()=>{if(gameActive&&!gamePaused&&focus<=0){life-=5;updateHUD()}},3000)}
 function gainFocus(n){focus=Math.min(100,focus+n);updateHUD()}
 function updateTaskList(){tasksList.forEach(t=>{let l=document.getElementById("task-"+t+"-line"),o=document.getElementById("task-"+t);if(tasks[t]){l.classList.add("done");l.textContent="✅ "+taskNames[t];o.classList.add("completed")}else{l.classList.remove("done");l.textContent="⬜ "+taskNames[t];o.classList.remove("completed")}})}
 function completeTask(t){if(tasks[t])return;tasks[t]=true;gainFocus(20);coins+=100;saveCoins();updateTaskList();updateWorldItems();saveCurrentGame();checkAllTasks()}
@@ -264,6 +276,21 @@ function interactNearby(){
  let best=null,dist=Infinity;
  [...tasksList,"bag"].forEach(t=>{if(t!=="bag"&&tasks[t])return;let el=t==="bag"?document.getElementById("task-bag"):document.getElementById("task-"+t);if(!el||el.classList.contains("hidden"))return;let x=el.offsetLeft+50,y=el.offsetTop+40,d=Math.hypot(playerX-x,playerY-y);if(d<dist){dist=d;best=t}});
  if(best&&dist<140){best==="bag"?interactBackpack():openTask(best)}else showSimpleModal("🚶 Chegue mais perto","Aproxime-se de uma tarefa ou da mochila para interagir.")
+}
+function openPauseMenu(){
+ if(!gameActive||gamePaused)return;
+ gamePaused=true;
+ if(phoneInterval){clearInterval(phoneInterval);phoneInterval=null}phoneOpen=false;
+ openModal(`<div style="text-align:center;padding:8px 2px"><div style="font-size:48px">⏸️</div><h2 style="font-size:32px;margin:8px 0">Jogo pausado</h2><p style="color:#b9c9d9;line-height:1.6">Respire um pouco. Sua jornada está esperando.</p><button class="bigButton" onclick="resumeGame()">▶ Continuar jogando</button><button class="bigButton secondaryButton" onclick="restartFromPause()">↻ Começar esta jornada de novo</button><button class="bigButton secondaryButton" onclick="exitToMainMenuFromPause()">🏠 Voltar ao menu inicial</button></div>`);
+}
+function resumeGame(){gamePaused=false;closeModal()}
+function restartFromPause(){
+ if(!confirm("Começar esta jornada de novo? O progresso das tarefas desta partida será reiniciado."))return;
+ resetRunState();gameActive=true;showScreen("gameScreen");updateWorldItems();updateCharacterOnMap();centerCamera();saveCurrentGame();
+}
+function exitToMainMenuFromPause(){
+ gamePaused=false;gameActive=false;saveCurrentGame(false);
+ if(window.marcarNavegacaoInterna)marcarNavegacaoInterna();location.href="index.html";
 }
 function openModal(html){modalContent.innerHTML=html;modalLayer.classList.remove("hidden")}
 function closeModal(){modalLayer.classList.add("hidden")}
@@ -354,9 +381,61 @@ function finishQuestionGame(){
  setTimeout(()=>showSimpleModal(g.type==="math"?"📚 Matemática concluída!":"🌎 Geografia concluída!",`<strong>Resultado final</strong><br><br>✅ Acertos: ${g.correct}<br>❌ Erros: ${g.wrong}<br>📝 Perguntas: ${g.questions.length}<br>⏱️ Tempo: ${g.elapsed.toFixed(2)}s${g.type==="math"&&age===16?`<br>🏆 Recorde de 16 anos: ${mathRecord.toFixed(2)}s`:""}<br><br>${g.correct===g.questions.length?"🎉 Você acertou tudo!":"💪 Você chegou até o final!"}`),250)
 }
 
-/* CELULAR */
-function openPhone(){if(!gameActive)return;phoneOpen=true;openModal(`<button class="closeButton" onclick="closePhone()">✕</button><h2>📱 Seu celular</h2><div style="width:min(330px,90vw);margin:auto;border:8px solid #242a33;border-radius:30px;padding:18px;background:#101723"><p style="text-align:center">Tempo de tela: <strong id="phoneTimer">${Math.floor(screenTime)}s</strong></p><div class="answerGrid"><button class="phoneApp" onclick="phoneUse('📸')">📸<span>Fotos</span></button><button class="phoneApp" onclick="phoneUse('💬')">💬<span>Mensagens</span></button><button class="phoneApp" onclick="phoneUse('🎵')">🎵<span>Música</span></button><button class="phoneApp" onclick="phoneUse('🎮')">🎮<span>Jogos</span></button></div><p id="phoneMessage" style="text-align:center;color:#9fb2c5">Você está usando o celular.</p></div>`);phoneInterval=setInterval(()=>{if(!phoneOpen)return;screenTime++;focus=Math.max(0,focus-.8);updateHUD();let t=document.getElementById("phoneTimer");if(t)t.textContent=Math.floor(screenTime)+"s"},1000)}
-function phoneUse(i){if(document.getElementById("phoneMessage"))phoneMessage.textContent=i+" Você abriu um aplicativo."}
+/* CELULAR: miniaplicativos interativos */
+function phoneFrame(content){return `<div style="width:min(390px,92vw);margin:auto;border:8px solid #242a33;border-radius:30px;padding:16px;background:linear-gradient(160deg,#142236,#0b111b);box-shadow:0 18px 45px #0007;max-height:72vh;overflow:auto">${content}</div>`}
+function phoneHome(){
+ if(!phoneOpen)return;
+ openModal(`<button class="closeButton" onclick="closePhone()">✕</button><h2>📱 Seu celular</h2>${phoneFrame(`<p style="text-align:center;margin:0 0 14px;color:#9fb2c5">Tempo de tela: <strong id="phoneTimer">${Math.floor(screenTime)}s</strong></p><div class="answerGrid"><button type="button" class="phoneApp" aria-label="Abrir Fotos" onclick="phoneUse('📸')">📸<span>Fotos</span></button><button type="button" class="phoneApp" aria-label="Abrir Mensagens" onclick="phoneUse('💬')">💬<span>Mensagens</span></button><button type="button" class="phoneApp" aria-label="Abrir Música" onclick="phoneUse('🎵')">🎵<span>Música</span></button><button type="button" class="phoneApp" aria-label="Abrir Jogos" onclick="phoneUse('🎮')">🎮<span>Jogos</span></button></div><p style="text-align:center;color:#9fb2c5;font-size:12px;margin-bottom:0">Escolha um aplicativo. O tempo de tela continua contando.</p>`)}`);
+}
+function openPhone(){if(!gameActive||gamePaused||phoneOpen)return;idlePhoneTriggered=true;phoneOpen=true;phoneHome();phoneInterval=setInterval(()=>{if(!phoneOpen)return;screenTime++;focus=Math.max(0,focus-.8);updateHUD();let t=document.getElementById("phoneTimer");if(t)t.textContent=Math.floor(screenTime)+"s"},1000)}
+function phoneUse(i){
+ if(i==="📸"){phonePhotos();return}
+ if(i==="💬"){phoneMessages();return}
+ if(i==="🎵"){phoneMusic();return}
+ if(i==="🎮"){
+  focus=Math.max(0,focus-20);updateHUD();if(window.DesconectaAudio)window.DesconectaAudio.effect("confirm");
+  window.phoneGame={hits:0,target:Math.floor(Math.random()*5)};phoneGameScreen();return;
+ }
+}
+function phoneBackButton(){return `<button class="miniButton secondaryButton" style="width:100%;margin-top:12px;border:0;border-radius:11px;padding:11px;color:white" onclick="phoneHome()">⬅ Voltar aos aplicativos</button>`}
+function phonePhotos(){
+ const moments=[];
+ moments.push({icon:"🌟",title:"Sua aventura começou",desc:"Você deu o primeiro passo no Desconecta!"});
+ const done=tasksList.filter(t=>tasks[t]);
+ done.forEach(t=>moments.push({icon:({trash:"🗑️",bed:"🛏️",clean:"🧹",bath:"🚿",room:"🧸",math:"📚",geo:"🌎"})[t],title:taskNames[t]+" concluída",desc:"Um momento registrado na sua jornada."}));
+ if(unlocked.backpack)moments.push({icon:"🎒",title:"Mochila desbloqueada",desc:"Você está se preparando para novas aventuras."});
+ if(endingData)moments.push({icon:"🏆",title:"Um dia inesquecível",desc:"Você chegou ao final de uma etapa da história."});
+ const cards=moments.map(m=>`<div style="display:flex;gap:12px;align-items:center;padding:11px;margin:8px 0;background:#ffffff0b;border:1px solid #ffffff15;border-radius:13px"><div style="font-size:28px">${m.icon}</div><div><strong>${m.title}</strong><div style="font-size:12px;color:#aebed0;margin-top:4px">${m.desc}</div></div></div>`).join("");
+ openModal(`<button class="closeButton" onclick="closePhone()">✕</button><h2>📸 Álbum de momentos</h2>${phoneFrame(`<p style="color:#aebed0;font-size:13px">Seu álbum guarda lembranças da aventura. As imagens são cartões ilustrados do jogo, não fotos reais da câmera.</p>${cards}${phoneBackButton()}`)}`)
+}
+function phoneMessages(){
+ const completed=tasksList.filter(t=>tasks[t]).length;
+ const replies=completed>=5?[
+  ["Mãe","Uau, você já fez bastante coisa hoje! Lembra de descansar um pouco também. 💙"],
+  ["Amigo","Depois me conta qual tarefa foi a mais difícil! 😄"],
+  ["Mãe","Estou feliz de ver você tentando. Um passo de cada vez! 🌟"]
+ ]:completed>=2?[
+  ["Mãe","Vi que você já começou algumas tarefas. Continue no seu ritmo! 💪"],
+  ["Amigo","Quando terminar, bora conversar sobre o dia? 🎮"],
+  ["Mãe","Não precisa fazer tudo de uma vez. Foque na próxima tarefa. 💙"]
+ ]:[
+  ["Mãe","Bom dia! Que tal escolher uma tarefa pequena para começar? 🌤️"],
+  ["Amigo","Ei! Como está indo sua aventura hoje? 😄"],
+  ["Mãe","Lembre-se: pausas ajudam, mas tente não se perder no celular. 💙"]
+ ];
+ openModal(`<button class="closeButton" onclick="closePhone()">✕</button><h2>💬 Mensagens</h2>${phoneFrame(`<div style="font-size:12px;color:#8fe9ff;font-weight:bold;margin-bottom:10px">CONVERSAS</div>${replies.map((r,i)=>`<button onclick="phoneReadMessage(${i})" style="display:block;width:100%;text-align:left;padding:12px;margin:8px 0;border:1px solid #ffffff17;border-radius:13px;background:#1b2c40;color:#fff"><strong>${r[0]}</strong><div style="font-size:12px;color:#aebed0;margin-top:4px">Toque para ler a mensagem</div></button>`).join("")}<div id="phoneChatReply" style="padding:12px;border-radius:12px;background:#0b1725;color:#dceeff;min-height:44px;font-size:13px">Escolha uma conversa para ler.</div>${phoneBackButton()}`)}`);
+ window.phoneMessageReplies=replies;
+}
+function phoneReadMessage(i){const box=document.getElementById("phoneChatReply");const r=window.phoneMessageReplies&&window.phoneMessageReplies[i];if(box&&r)box.innerHTML=`<strong>${r[0]}:</strong><br>${r[1]}`}
+function phoneMusic(){
+ openModal(`<button class="closeButton" onclick="closePhone()">✕</button><h2>🎵 Música</h2>${phoneFrame(`<p style="color:#aebed0;font-size:13px">Escolha o clima da trilha sonora. As opções usam melodias instrumentais geradas pelo próprio jogo.</p><button class="phoneApp" style="width:100%;margin:8px 0" onclick="phoneChooseMusic('calma')">🌿<span>Calma · ritmo suave</span></button><button class="phoneApp" style="width:100%;margin:8px 0" onclick="phoneChooseMusic('energia')">⚡<span>Energia · ritmo animado</span></button><button class="phoneApp" style="width:100%;margin:8px 0" onclick="phoneChooseMusic('foco')">🧠<span>Foco · ritmo concentrado</span></button><p id="phoneMusicStatus" style="color:#8fe9ff;font-size:12px">${localStorage.getItem("desconectaMusicMood")||"calma"} selecionada</p>${phoneBackButton()}`)}`)
+}
+function phoneChooseMusic(mood){localStorage.setItem("desconectaMusicMood",mood);if(window.DesconectaAudio&&window.DesconectaAudio.setMood)window.DesconectaAudio.setMood(mood);const status=document.getElementById("phoneMusicStatus");if(status)status.textContent="Clima selecionado: "+({calma:"🌿 Calma",energia:"⚡ Energia",foco:"🧠 Foco"}[mood]||mood);if(window.DesconectaAudio)window.DesconectaAudio.effect("confirm")}
+function phoneGameScreen(){
+ const g=window.phoneGame||{hits:0,target:0};
+ openModal(`<button class="closeButton" onclick="closePhone()">✕</button><h2>🎮 Toque relâmpago</h2>${phoneFrame(`<p style="color:#aebed0;font-size:13px">Toque na estrela para marcar pontos. Acerte 5 vezes para terminar! Este minijogo custa 20 pontos percentuais de concentração ao começar.</p><div style="text-align:center;padding:18px;background:#101b2a;border-radius:18px"><div style="font-size:13px;color:#8fe9ff">ACERTOS</div><div id="phoneGameScore" style="font-size:32px;font-weight:900;margin:6px">${g.hits}/5</div><button onclick="phoneTapStar()" style="width:110px;height:110px;border:2px solid #ffe6a1;border-radius:28px;background:radial-gradient(circle at 35% 25%,#ffe9a5,#d88727);font-size:48px;box-shadow:0 0 25px #ffba4566">⭐</button><p id="phoneGameMessage" style="font-size:12px;color:#ffdba2">Vamos ver seus reflexos!</p></div>${phoneBackButton()}`)}`)
+}
+function phoneTapStar(){const g=window.phoneGame;if(!g)return;g.hits++;if(window.DesconectaAudio)window.DesconectaAudio.effect("tap");const score=document.getElementById("phoneGameScore"),msg=document.getElementById("phoneGameMessage");if(score)score.textContent=Math.min(g.hits,5)+"/5";if(g.hits>=5){if(msg)msg.textContent="🏆 Desafio concluído! Bom reflexo!";localStorage.setItem("desconectaPhoneGameBest",String(Math.max(Number(localStorage.getItem("desconectaPhoneGameBest")||0),g.hits)));setTimeout(()=>{if(phoneOpen)phoneHome()},900)}else if(msg)msg.textContent=["Boa! Continua!","Mandou bem!","Quase lá!","Só mais uma!"][Math.min(g.hits-1,3)]}
 function closePhone(){phoneOpen=false;if(phoneInterval){clearInterval(phoneInterval);phoneInterval=null}closeModal()}
 
 /* MOCHILA E ESCOLA */
@@ -405,7 +484,7 @@ function saveCoins(){localStorage.setItem("desconectaCoins",coins)}
 
 /* MOVIMENTO */
 document.addEventListener("keydown",e=>{keys[e.key.toLowerCase()]=true;if(e.key.toLowerCase()==="e")interactNearby()});document.addEventListener("keyup",e=>keys[e.key.toLowerCase()]=false)
-function updatePlayer(delta){if(!gameActive||phoneOpen||!modalLayer.classList.contains("hidden"))return;let dx=0,dy=0;if(keys.w||keys.arrowup)dy--;if(keys.s||keys.arrowdown)dy++;if(keys.a||keys.arrowleft)dx--;if(keys.d||keys.arrowright)dx++;dx+=joystickX;dy+=joystickY;let m=Math.hypot(dx,dy);if(m>1){dx/=m;dy/=m}let speed=220;if(focus<=30)speed=145;if(focus<=10)speed=85;playerX+=dx*speed*delta;playerY+=dy*speed*delta;playerX=Math.max(30,Math.min(2370,playerX));playerY=Math.max(30,Math.min(1770,playerY));updateCharacterOnMap();centerCamera()}
+function updatePlayer(delta){if(!gameActive||gamePaused||phoneOpen||!modalLayer.classList.contains("hidden"))return;let dx=0,dy=0;if(keys.w||keys.arrowup)dy--;if(keys.s||keys.arrowdown)dy++;if(keys.a||keys.arrowleft)dx--;if(keys.d||keys.arrowright)dx++;dx+=joystickX;dy+=joystickY;let m=Math.hypot(dx,dy);if(m>.12){idlePhoneSeconds=0;idlePhoneTriggered=false}else{idlePhoneSeconds+=delta;if(idlePhoneSeconds>=7&&!idlePhoneTriggered){idlePhoneTriggered=true;openPhone();return}}if(m>1){dx/=m;dy/=m}let speed=220;if(focus<=30)speed=145;if(focus<=10)speed=85;playerX+=dx*speed*delta;playerY+=dy*speed*delta;playerX=Math.max(30,Math.min(2370,playerX));playerY=Math.max(30,Math.min(1770,playerY));updateCharacterOnMap();centerCamera()}
 function updateCharacterOnMap(){applyAppearance(player);player.style.left=playerX+"px";player.style.top=playerY+"px"}
 function centerCamera(){let w=gameScreen.clientWidth,h=gameScreen.clientHeight;let l=w/2-playerX,t=h/2-playerY;l=Math.min(0,Math.max(w-2400,l));t=Math.min(0,Math.max(h-1800,t));world.style.left=l+"px";world.style.top=t+"px"}
 let joystickActive=false;const joystick=document.getElementById("joystick"),stick=document.getElementById("stick");
